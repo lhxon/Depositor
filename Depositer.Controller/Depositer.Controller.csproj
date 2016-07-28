@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EqualCaptialModel.cs" />
-    <Compile Include="EqualInterestModel.cs" />
-    <Compile Include="DebtModel.cs" />
+    <Compile Include="BaseObject\TimeType.cs" />
+    <Compile Include="DebtModel\MEqualCaptial.cs" />
+    <Compile Include="DebtModel\MEqualInterest.cs" />
+    <Compile Include="DebtModel\MDebt.cs" />
+    <Compile Include="EarningsModel\MEarnings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
