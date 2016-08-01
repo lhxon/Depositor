@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Setting>
+  <TimeType>Month</TimeType>
+  <TimeLength>3</TimeLength>
+  <DebtType>EqualCaptial</DebtType>
+  <SumDebt>32</SumDebt>
+  <YearRate>0.05</YearRate>
+</Setting>

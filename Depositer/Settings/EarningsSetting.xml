@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Setting>
+  <TimeType>Month</TimeType>
+  <TimeLength>3</TimeLength>
+  <InvestmentAmount>20000</InvestmentAmount>
+  <YearRate>0.01</YearRate>
+</Setting>

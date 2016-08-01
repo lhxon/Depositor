@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
-namespace Depositer
+namespace Depositer.Forms
 {
     public partial class MainForm : Form
     {
@@ -23,7 +19,8 @@ namespace Depositer
         /// <param name="e"></param>
         private void debtSettingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            DebtSettingDlg debtSetDlg = new DebtSettingDlg();
+            debtSetDlg.ShowDialog();
         }
 
         /// <summary>
@@ -33,7 +30,8 @@ namespace Depositer
         /// <param name="e"></param>
         private void incomeSettingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            InvestSettingDlg investSetDlg = new InvestSettingDlg();
+            investSetDlg.ShowDialog();
         }
 
         /// <summary>
