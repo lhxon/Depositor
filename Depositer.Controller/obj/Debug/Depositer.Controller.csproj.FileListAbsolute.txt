@@ -1,7 +1,0 @@
-C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Controller\bin\Debug\Depositer.Controller.dll
-C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Controller\bin\Debug\Depositer.Controller.pdb
-C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Controller\bin\Debug\Depositer.Lib.dll
-C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Controller\bin\Debug\Depositer.Lib.pdb
-C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Controller\obj\Debug\Depositer.Controller.csprojResolveAssemblyReference.cache
-C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Controller\obj\Debug\Depositer.Controller.dll
-C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Controller\obj\Debug\Depositer.Controller.pdb
