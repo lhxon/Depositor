@@ -9,12 +9,25 @@ namespace Depositer.Controller.Model
     /// </summary>
     public class MEqualInterest : MDebt
     {
+
+        /// <summary>
+        /// 获取某个月的还款金额
+        /// </summary>        
+        public override double PaymentAt(int monthIndex)
+        {
+            var payment = SumDebt * MonthDebtRate * Math.Pow((1 + MonthDebtRate), timelength) /
+                ((Math.Pow((1 + MonthDebtRate), timelength)) - 1);
+            if (payment < 0)
+                throw new Exception("还款金额不能小于零！");
+            return payment;
+        }
+
         /// <summary>
         /// 某个月偿还的本金
         /// </summary>
-        public double PaymentCaptialMonth(int monthIndex)
+        public override double PaymentCapitalMonth(int monthIndex)
         {
-            return PaymentMonth - PaymentInterestMonth(monthIndex);
+            return PaymentAt(monthIndex) - PaymentInterestAt(monthIndex);
         }
 
         /// <summary>
@@ -22,27 +35,9 @@ namespace Depositer.Controller.Model
         /// </summary>
         /// <param name="monthIndex"></param>
         /// <returns></returns>
-        public double PaymentInterestMonth(int monthIndex)
+        public override double PaymentInterestAt(int monthIndex)
         {
-            return (SumDebt - (monthIndex - 1) * PaymentMonth) * MonthDebtRate;
-        }
-
-
-        /// <summary>
-        /// 获取某个月的还款金额
-        /// </summary>        
-        public double PaymentMonth
-        {
-            get
-            {
-                var payment = SumDebt * MonthDebtRate * Math.Pow
-                ((1 + MonthDebtRate), timelength) / ((Math.Pow
-                ((1 + MonthDebtRate), timelength)) - 1);
-                if (payment < 0)
-                    throw new Exception("还款金额不能小于零！");
-                return payment;
-            }
-
+            return (SumDebt - (monthIndex - 1) * PaymentAt(monthIndex)) * MonthDebtRate;
         }
 
         /// <summary>
@@ -51,7 +46,7 @@ namespace Depositer.Controller.Model
         /// <returns></returns>
         public override double GetSumPayment()
         {
-            return PaymentMonth * timelength;
+            return PaymentAt(-1) * timelength;
         }
 
         /// <summary>
@@ -61,7 +56,7 @@ namespace Depositer.Controller.Model
         /// <returns></returns>
         public override double FinishedPaymentAt(int monthIndex)
         {
-            return monthIndex * PaymentMonth;
+            return monthIndex * PaymentAt(monthIndex);
         }
 
         /// <summary>

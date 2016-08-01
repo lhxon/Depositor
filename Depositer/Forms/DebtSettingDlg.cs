@@ -11,7 +11,14 @@ namespace Depositer.Forms
     /// </summary>
     public partial class DebtSettingDlg : BaseDlg
     {
-        private MDebt debt = new MEqualCaptial();
+        private static MDebt debt = new MEqualCaptial();
+        /// <summary>
+        /// 配置的贷款实例
+        /// </summary>
+        public static MDebt Debt
+        {
+            get { return debt; }
+        }
 
         public DebtSettingDlg()
         {

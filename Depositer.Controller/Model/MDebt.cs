@@ -32,12 +32,51 @@ namespace Depositer.Controller.Model
         public double MonthDebtRate 
         {
             get { return YearRate / 12; }
-        }       
+        }
+
+        /// <summary>
+        /// 以月为单位的还款总月数
+        /// </summary>
+        public double TimeLengthMonth
+        {
+            get { return converttimeLengthToMonth(); }
+        }
+
+        protected double converttimeLengthToMonth()
+        {
+            if (TimeType == TimeType.Year)
+                return timelength * 12;
+            else if (TimeType == TimeType.Day)
+                return timelength / 30;
+            else if (TimeType == TimeType.Month)
+                return timelength;
+            else
+                throw new ArgumentException("未设置时间类型！");
+        }
 
         /// <summary>
         /// 贷款类型
         /// </summary>
         public DebtType DebtType { get; set; }
+
+        /// <summary>
+        /// 获取某个月的还款金额
+        /// </summary>
+        /// <param name="monthIndex">还款月的编号，从1开始</param>
+        /// <returns></returns>
+        public abstract double PaymentAt(int monthIndex);
+
+        /// <summary>
+        /// 每月偿还的本金
+        /// </summary>
+        public abstract double PaymentCapitalMonth(int monthIndex);
+
+        /// <summary>
+        /// 在某个月偿还的利息
+        /// </summary>
+        /// <param name="monthIndex"></param>
+        /// <returns></returns>
+        public abstract double PaymentInterestAt(int monthIndex);
 
         /// <summary>
         /// 获取等额本金需要的总还款额
