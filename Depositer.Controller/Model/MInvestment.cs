@@ -6,10 +6,7 @@ using System.Linq;
 namespace Depositer.Controller.Model
 {
     [XMLAttribute("InvestmentAmount")]
-    [XMLAttribute("YearRate")]
-    [XMLAttribute("TimeType")]
-    [XMLAttribute("TimeLength")]
-    public class MInvestment
+    public class MInvestment:MBase
     {
         private double inverstmentAmount;
         /// <summary>
@@ -25,22 +22,6 @@ namespace Depositer.Controller.Model
             }
         }
 
-        private double yearRate;
-        /// <summary>
-        /// 投资年利率
-        /// </summary>
-        public double YearRate 
-        {
-            get { return yearRate; }
-            set 
-            {
-                if (value < 0)
-                    throw new Exception("年利率不能小于零！");
-                yearRate = value;
-                yearRate /= 100;
-            }
-        }
-
         /// <summary>
         /// 投资月利率
         /// </summary>
@@ -48,7 +29,7 @@ namespace Depositer.Controller.Model
         {
             get
             {
-                return yearRate / 12;
+                return YearRate / 12;
             }
         }
 
@@ -60,32 +41,7 @@ namespace Depositer.Controller.Model
         {
             get
             {
-                return yearRate / 365;
-            }
-        }
-
-        private TimeType timeType;
-        /// <summary>
-        /// 投资的时长类型
-        /// </summary>
-        public TimeType TimeType
-        {
-            get { return timeType; }
-            set {timeType = value; }
-        }
-
-        private double investTimeLength;
-        /// <summary>
-        /// 投资时长
-        /// </summary>
-        public double TimeLength 
-        {
-            get { return investTimeLength; }
-            set 
-            {
-                if (value <= 0)
-                    throw new LessOrEquZeroException(value);
-                investTimeLength = value;
+                return YearRate / 365;
             }
         }
 
@@ -96,11 +52,11 @@ namespace Depositer.Controller.Model
         public double GetIncomeAmount()
         {
             if (TimeType == TimeType.Year)
-                return investTimeLength * yearRate;
+                return timelength * YearRate;
             else if (TimeType == TimeType.Month)
-                return investTimeLength * MonthRate;
+                return timelength * MonthRate;
             else
-                return investTimeLength * DayRate;
+                return timelength * DayRate;
         }
     }
 }

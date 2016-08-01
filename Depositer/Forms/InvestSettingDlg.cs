@@ -6,12 +6,41 @@ using System.Linq;
 
 namespace Depositer.Forms
 {
+    /// <summary>
+    /// 投资设置对话框
+    /// </summary>
     public partial class InvestSettingDlg : BaseDlg
     {
-        private MEarnings earnings = new MEarnings();
+        private MInvestment earnings = new MInvestment();
         public InvestSettingDlg()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Load事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InvestSettingDlg_Load(object sender, EventArgs e)
+        {
+            this.FillControls();
+        }
+
+        private void FillControls()
+        {
+            try
+            {
+                base.FillControlsBase("InvestmentSetting.xml", earnings);
+                double investAmount = Double.Parse(xmlTools.XmlAttributeDict["InvestmentAmount"].ToString()) / 10000;
+                TimeLengthTxt.Text = xmlTools.XmlAttributeDict["TimeLength"].ToString();
+                investAmountTxt.Text = investAmount.ToString();
+                investYearRateTxt.Text = xmlTools.XmlAttributeDict["XMLYearRate"].ToString();
+            }
+            catch (Exception ex)
+            {
+                IMessageBox.ShowError(ex.Message);
+            }
         }
 
         protected override void SaveButtonCall()
@@ -19,11 +48,12 @@ namespace Depositer.Forms
             try
             {
                 BuildInvestModelInstance();
-                UpdateXML("EarningsSetting.xml", earnings);
+                xmlTools.UpdateXML("InvestmentSetting.xml", earnings);
                 IsSavedOK = true;
             }
             catch (Exception ex)
             {
+                IsSavedOK = false;
                 IMessageBox.ShowWarning(ex.Message);
             }
             base.SaveButtonCall();
@@ -35,39 +65,13 @@ namespace Depositer.Forms
         /// </summary>
         private void BuildInvestModelInstance()
         {
-            earnings = new MEarnings()
+            earnings = new MInvestment()
             {
                 TimeType = GetTimeType(), 
                 InvestmentAmount = Double.Parse(investAmountTxt.Text),
                 TimeLength = Double.Parse(TimeLengthTxt.Text) ,
                 YearRate = Double.Parse(investYearRateTxt.Text)
             };         
-        }
-
-        private void FillControls()
-        {
-            try
-            {
-                base.FillControlsBase("EarningsSetting.xml",earnings);
-                double investAmount = Double.Parse(xmlAttributeDict["InvestmentAmount"].ToString()) / 10000;
-                TimeLengthTxt.Text = xmlAttributeDict["TimeLength"].ToString();
-                investAmountTxt.Text = investAmount.ToString();
-                investYearRateTxt.Text = xmlAttributeDict["YearRate"].ToString();
-            }
-            catch (Exception ex)
-            {
-                IMessageBox.ShowError(ex.Message);
-            }
-        }
-        /// <summary>
-        /// Load事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void InvestSettingDlg_Load(object sender, EventArgs e)
-        {
-            this.FillControls();
-        }   
-        
+        }       
     }
 }

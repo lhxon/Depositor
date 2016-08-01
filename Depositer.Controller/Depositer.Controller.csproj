@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\DebtType.cs" />
+    <Compile Include="Model\MBase.cs" />
     <Compile Include="Model\TimeType.cs" />
     <Compile Include="Model\MEqualCaptial.cs" />
     <Compile Include="Model\MEqualInterest.cs" />

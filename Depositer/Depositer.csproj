@@ -180,7 +180,7 @@
     <Content Include="Settings\DebtSetting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Settings\EarningsSetting.xml">
+    <Content Include="Settings\InvestmentSetting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
