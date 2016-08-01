@@ -48,7 +48,7 @@
     <Compile Include="Model\MEqualCaptial.cs" />
     <Compile Include="Model\MEqualInterest.cs" />
     <Compile Include="Model\MDebt.cs" />
-    <Compile Include="Model\MEarnings.cs" />
+    <Compile Include="Model\MInvestment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@ namespace Depositer.Controller.Model
     [XMLAttribute("YearRate")]
     [XMLAttribute("TimeType")]
     [XMLAttribute("TimeLength")]
-    public class MEarnings
+    public class MInvestment
     {
         private double inverstmentAmount;
         /// <summary>

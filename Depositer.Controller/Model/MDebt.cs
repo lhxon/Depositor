@@ -8,8 +8,8 @@ namespace Depositer.Controller.Model
     [XMLAttribute("SumDebt")]
     [XMLAttribute("YearRate")]
     [XMLAttribute("TimeType")]
-    [XMLAttribute("DebtType")]
     [XMLAttribute("TimeLength")]
+    [XMLAttribute("DebtType")]  
     public abstract class MDebt
     {
         private double sumDebt = 0d;
