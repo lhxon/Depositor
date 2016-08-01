@@ -1,0 +1,7 @@
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer\obj\x86\Debug\Depositer.csprojResolveAssemblyReference.cache
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer\obj\x86\Debug\Depositer.Forms.BaseDlg.resources
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer\obj\x86\Debug\Depositer.Forms.DebtSettingDlg.resources
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer\obj\x86\Debug\Depositer.Forms.MainForm.resources
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer\obj\x86\Debug\Depositer.Properties.Resources.resources
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer\obj\x86\Debug\Depositer.csproj.GenerateResource.Cache
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer\bin\Debug\Depositer.exe.config
