@@ -1,0 +1,5 @@
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Lib\bin\Debug\Depositer.Lib.dll
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Lib\bin\Debug\Depositer.Lib.pdb
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Lib\obj\Debug\Depositer.Lib.csprojResolveAssemblyReference.cache
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Lib\obj\Debug\Depositer.Lib.dll
+C:\Users\jackz\Documents\myPrograms\Depositor\Depositer.Lib\obj\Debug\Depositer.Lib.pdb
