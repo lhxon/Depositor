@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Depositer.Controller</RootNamespace>
     <AssemblyName>Depositer.Controller</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -40,12 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseObject\TimeType.cs" />
-    <Compile Include="DebtModel\MEqualCaptial.cs" />
-    <Compile Include="DebtModel\MEqualInterest.cs" />
-    <Compile Include="DebtModel\MDebt.cs" />
-    <Compile Include="EarningsModel\MEarnings.cs" />
+    <Compile Include="Model\DebtType.cs" />
+    <Compile Include="Model\TimeType.cs" />
+    <Compile Include="Model\MEqualCaptial.cs" />
+    <Compile Include="Model\MEqualInterest.cs" />
+    <Compile Include="Model\MDebt.cs" />
+    <Compile Include="Model\MEarnings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Depositer.Lib\Depositer.Lib.csproj">
+      <Project>{9029cf4a-1d19-47ba-97c2-f2124ed8ed3e}</Project>
+      <Name>Depositer.Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

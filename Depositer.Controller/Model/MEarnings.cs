@@ -1,16 +1,29 @@
-﻿using System;
+﻿using Depositer.Lib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Depositer.Controller.Model
 {
+    [XMLAttribute("InvestmentAmount")]
+    [XMLAttribute("YearRate")]
+    [XMLAttribute("TimeType")]
+    [XMLAttribute("TimeLength")]
     public class MEarnings
     {
+        private double inverstmentAmount;
         /// <summary>
         /// 投资金额
         /// </summary>
-        public double InvestmentAmount { get; set; }
+        public double InvestmentAmount 
+        {
+            get { return inverstmentAmount; }
+            set 
+            {
+                inverstmentAmount = value;
+                inverstmentAmount *= 10000;
+            }
+        }
 
         private double yearRate;
         /// <summary>
@@ -23,11 +36,11 @@ namespace Depositer.Controller.Model
             {
                 if (value < 0)
                     throw new Exception("年利率不能小于零！");
-                yearRate = value; 
+                yearRate = value;
+                yearRate /= 100;
             }
         }
 
-        private double monthRate;
         /// <summary>
         /// 投资月利率
         /// </summary>
@@ -35,12 +48,11 @@ namespace Depositer.Controller.Model
         {
             get
             {
-                monthRate = yearRate / 12;
-                return monthRate;
+                return yearRate / 12;
             }
         }
 
-        private double dayRate;
+
         /// <summary>
         /// 投资日利率
         /// </summary>
@@ -48,47 +60,32 @@ namespace Depositer.Controller.Model
         {
             get
             {
-                dayRate = yearRate / 365;
-                return dayRate;
+                return yearRate / 365;
             }
         }
 
-        private TimeType investTimeType;
+        private TimeType timeType;
         /// <summary>
         /// 投资的时长类型
         /// </summary>
-        public TimeType InverstTimeType
+        public TimeType TimeType
         {
-            get { return InverstTimeType; }
-            set { investTimeType = value; }
+            get { return timeType; }
+            set {timeType = value; }
         }
 
         private double investTimeLength;
         /// <summary>
         /// 投资时长
         /// </summary>
-        public double InvestTimeLength 
+        public double TimeLength 
         {
             get { return investTimeLength; }
             set 
             {
-                if(value<0)
-                    throw new Exception("投资时长不能小于零！");
-                 investTimeLength = value;
-            }
-        }
-
-        private double incomeAmount;
-        /// <summary>
-        /// 收益
-        /// </summary>
-        public double IncomeAmount 
-        {
-            get {return incomeAmount;}
-            set 
-            {
-                incomeAmount = getIncomeAmount();
-                incomeAmount = value;
+                if (value <= 0)
+                    throw new LessOrEquZeroException(value);
+                investTimeLength = value;
             }
         }
 
@@ -96,14 +93,14 @@ namespace Depositer.Controller.Model
         /// 投资收益
         /// </summary>
         /// <returns></returns>
-        private double getIncomeAmount()
+        public double GetIncomeAmount()
         {
-            if (InverstTimeType == TimeType.Year)
+            if (TimeType == TimeType.Year)
                 return investTimeLength * yearRate;
-            else if (InverstTimeType == TimeType.Month)
-                return investTimeLength * monthRate;
+            else if (TimeType == TimeType.Month)
+                return investTimeLength * MonthRate;
             else
-                return investTimeLength * dayRate;
+                return investTimeLength * DayRate;
         }
     }
 }

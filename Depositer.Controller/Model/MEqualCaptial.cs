@@ -1,16 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Depositer.Controller.Model
 {
     /// <summary>
     /// 等额本金还款
     /// </summary>
-    public class EqualCaptialModel:DebtModel
+    public class MEqualCaptial:MDebt
     {
         private double paymentCapitalMonth;
+        private double timeLengthMonth
+        {
+            get { return converttimeLengthToMonth(); }
+        }
+        private double converttimeLengthToMonth()
+        {
+            if (TimeType == TimeType.Year)
+                return timelength * 12;
+            else if (TimeType == TimeType.Day)
+                return timelength / 30;
+            else if (TimeType == TimeType.Month)
+                return timelength;
+            else
+                throw new ArgumentException("未设置时间类型！");
+        }
         /// <summary>
         /// 每月偿还的本金
         /// </summary>
@@ -18,7 +32,7 @@ namespace Depositer.Controller.Model
         {
             get 
             {
-                paymentCapitalMonth = SumDebt / DebtMonths;
+                paymentCapitalMonth = SumDebt / timeLengthMonth; //月
                 return paymentCapitalMonth;
             }
         }
@@ -40,7 +54,7 @@ namespace Depositer.Controller.Model
         /// <returns></returns>
         public double PaymentAt(int monthIndex)
         {
-            paymentCapitalMonth = SumDebt / DebtMonths; //还款本金是不变的
+            paymentCapitalMonth = SumDebt / timeLengthMonth; //还款本金是不变的
             var paymentInterestMonth = PaymentInterestAt(monthIndex);
             return PaymentCapitalMonth + paymentInterestMonth;
         }
@@ -52,7 +66,7 @@ namespace Depositer.Controller.Model
         public override double GetSumPayment()
         {
             double sumPaymentAmount = 0.0;
-            for (int i = 0; i < DebtMonths; i++)
+            for (int i = 0; i < timeLengthMonth; i++)
             {              
                 sumPaymentAmount += PaymentAt(i + 1);
             }
@@ -91,9 +105,8 @@ namespace Depositer.Controller.Model
         /// <returns></returns>
         public double ShowPaymentNextTo(int monthIndex)
         {
-            double capital = 0.0;
-            double interest = 0.0;
-            capital = SumDebt / DebtMonths; //还款本金是不变的
+            double capital = SumDebt / timeLengthMonth;//还款本金是不变的
+            double interest = 0.0; 
             interest = (SumDebt - monthIndex * capital) * MonthDebtRate;
             return capital + interest;
         }

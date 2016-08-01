@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Depositer.Controller.Model
 {
     /// <summary>
     /// 等额本息还款
     /// </summary>
-    public class EqualInterestModel : DebtModel
+    public class MEqualInterest : MDebt
     {
         /// <summary>
         /// 某个月偿还的本金
@@ -37,8 +36,8 @@ namespace Depositer.Controller.Model
             get
             {
                 var payment = SumDebt * MonthDebtRate * Math.Pow
-                ((1 + MonthDebtRate), DebtMonths) / ((Math.Pow
-                ((1 + MonthDebtRate), DebtMonths)) - 1);
+                ((1 + MonthDebtRate), timelength) / ((Math.Pow
+                ((1 + MonthDebtRate), timelength)) - 1);
                 if (payment < 0)
                     throw new Exception("还款金额不能小于零！");
                 return payment;
@@ -52,7 +51,7 @@ namespace Depositer.Controller.Model
         /// <returns></returns>
         public override double GetSumPayment()
         {
-            return PaymentMonth * DebtMonths;
+            return PaymentMonth * timelength;
         }
 
         /// <summary>
