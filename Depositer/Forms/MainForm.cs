@@ -13,7 +13,7 @@ namespace Depositer.Forms
     {
 
         private XMLTools xmlTools = new XMLTools();
-
+        private int dateNowInRowNo = 0;
         public MainForm()
         {
             InitializeComponent();
@@ -117,6 +117,8 @@ namespace Depositer.Forms
             {
                 var row = dataTable.NewRow();
                 var time = debt.OnDebtTime.AddMonths(i);
+                if (DateTimeExtension.ReturnYearMonth(time) == DateTimeExtension.ReturnYearMonth(DateTime.Now))
+                    dateNowInRowNo = i;
                 row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
                 row["本息（元）"] = Math.Round(debt.PaymentAt(i)*10000);
                 row["本金（元）"] = Math.Round(debt.PaymentCapitalMonth(i)*10000);
@@ -126,7 +128,7 @@ namespace Depositer.Forms
                 
                 dataTable.Rows.Add(row);
             }
-            debtDgview.DataSource = dataTable;
+            debtDgview.DataSource = dataTable;            
         }
 
         /// <summary>
@@ -142,9 +144,12 @@ namespace Depositer.Forms
                     row.DefaultCellStyle.BackColor = Color.White;
                 else
                     row.DefaultCellStyle.BackColor = Color.LightGray;
+                if (Convert.ToDateTime(row.Cells[0].Value).Month == 1)
+                    row.DefaultCellStyle.BackColor = Color.Orange;
             }
 
-            var timespan = DateTime.Now.Year - MGlobal.Debt.OnDebtTime
+            //设置当前时间月所在行未蓝色
+            debtDgview.Rows[dateNowInRowNo-1].DefaultCellStyle.BackColor = Color.Blue;
         }
     }
 }
