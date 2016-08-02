@@ -131,7 +131,7 @@
             this.DebtAnalysisToolStripMenuItem.Name = "DebtAnalysisToolStripMenuItem";
             this.DebtAnalysisToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.DebtAnalysisToolStripMenuItem.Text = "还贷分析";
-            this.DebtAnalysisToolStripMenuItem.Click += new System.EventHandler(this.DebtAnalysisToolStripMenuItem_Click);
+            this.DebtAnalysisToolStripMenuItem.Click += new System.EventHandler(this.debtAnalysisToolStripMenuItem_Click);
             // 
             // 投资分析ToolStripMenuItem
             // 

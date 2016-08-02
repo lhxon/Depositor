@@ -34,9 +34,9 @@ namespace Depositer.Forms
             try
             {
                 base.FillControlsBase("DebtSetting.xml", debt);
-                if (xmlTools.XmlAttributeDict["DebtType"].ToString() == "EqualCaptial")
+                if (xmlTools.XmlAttributeDict["DebtType"].ToString() == "MEqualCaptial")
                     comboBox1.SelectedText = "等额本金";
-                else if (xmlTools.XmlAttributeDict["DebtType"].ToString() == "EqualInterest")
+                else if (xmlTools.XmlAttributeDict["DebtType"].ToString() == "MEqualInterest")
                     comboBox1.SelectedText = "等额本息";
                 sumDebtTxt.Text = xmlTools.XmlAttributeDict["SumDebt"].ToString();
                 TimeLengthTxt.Text = xmlTools.XmlAttributeDict["TimeLength"].ToString();

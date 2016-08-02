@@ -86,7 +86,7 @@ namespace Depositer.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DebtAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
+        private void debtAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -103,8 +103,8 @@ namespace Depositer.Forms
             if (debt == null)
                 throw new ArgumentException("请先进行贷款设置！");
             DataColumn[] columns = new DataColumn[]{new DataColumn("时间",typeof(string)),
-            new DataColumn("本息",typeof(double)),new DataColumn("本金",typeof(double)),
-                new DataColumn("利息",typeof(double)),new DataColumn("利息率",typeof(string))};
+            new DataColumn("本息（元）",typeof(double)),new DataColumn("本金（元）",typeof(double)),
+                new DataColumn("利息（元）",typeof(double)),new DataColumn("利息率",typeof(string))};
             var dataTable = new DataTable();
             dataTable.Columns.AddRange(columns);
             for(int i=1;i<debt.TimeLengthMonth+1;i++)
@@ -112,11 +112,11 @@ namespace Depositer.Forms
                 var row = dataTable.NewRow();
                 var time = DateTime.Now.AddMonths(i);
                 row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
-                row["本息"] = Math.Round(debt.PaymentAt(i)*10000);
-                row["本金"] = Math.Round(debt.PaymentCapitalMonth(i)*10000);
-                row["利息"] = Math.Round(debt.PaymentInterestAt(i)*10000);
-                row["利息率"] = (Math.Round((Double.Parse(row["利息"].ToString()) /
-                                      Double.Parse(row["本息"].ToString())) * 100, 0)).ToString() + "%";
+                row["本息（元）"] = Math.Round(debt.PaymentAt(i)*10000);
+                row["本金（元）"] = Math.Round(debt.PaymentCapitalMonth(i)*10000);
+                row["利息（元）"] = Math.Round(debt.PaymentInterestAt(i)*10000);
+                row["利息率"] = (Math.Round((Double.Parse(row["利息（元）"].ToString()) /
+                                      Double.Parse(row["本息（元）"].ToString())) * 100, 0)).ToString() + "%";
                 dataTable.Rows.Add(row);
             }
             this.debtDgview.DataSource = dataTable;
