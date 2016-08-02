@@ -2,7 +2,7 @@
 <Setting>
   <TimeType>Year</TimeType>
   <TimeLength>30</TimeLength>
-  <DebtType>EqualCaptial</DebtType>
+  <DebtType>MEqualCaptial</DebtType>
   <SumDebt>31</SumDebt>
   <XMLYearRate>4.9</XMLYearRate>
 </Setting>

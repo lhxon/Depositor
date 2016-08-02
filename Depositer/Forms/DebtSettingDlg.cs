@@ -12,13 +12,7 @@ namespace Depositer.Forms
     public partial class DebtSettingDlg : BaseDlg
     {
         private static MDebt debt = new MEqualCaptial();
-        /// <summary>
-        /// 配置的贷款实例
-        /// </summary>
-        public static MDebt Debt
-        {
-            get { return debt; }
-        }
+
 
         public DebtSettingDlg()
         {
@@ -79,13 +73,15 @@ namespace Depositer.Forms
             if(string.IsNullOrEmpty(comboBox1.Text))
                 throw new ArgumentNullException("未选择还贷方式！");
             if (comboBox1.Text == comboBox1.Items[0].ToString()) //等额本金
-                debt = new MEqualCaptial() { DebtType = DebtType.EqualCaptial};
+                debt = new MEqualCaptial() { DebtType = DebtType.MEqualCaptial};
             else
-                debt = new MEqualInterest() { DebtType = DebtType.EqualInterest };           
+                debt = new MEqualInterest() { DebtType = DebtType.MEqualInterest };           
              debt.TimeType = GetTimeType();
              debt.SumDebt = Double.Parse(sumDebtTxt.Text);
              debt.TimeLength = Double.Parse(TimeLengthTxt.Text);
              debt.YearRate = Double.Parse(yearRateTxt.Text);
+
+             MGlobal.Debt = debt;
         }     
     }
 }

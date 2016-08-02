@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Depositer.Controller.Model
 {
-    public enum DebtType
+    public class MGlobal
     {
         /// <summary>
-        /// 等额本金
+        /// 配置的贷款对象
         /// </summary>
-        MEqualCaptial=1,
+        public static MDebt Debt { get; set; }
+
         /// <summary>
-        /// 等额本息
+        /// 投资对象
         /// </summary>
-        MEqualInterest=2
+        public static MInvestment Investment { get; set; }
     }
 }

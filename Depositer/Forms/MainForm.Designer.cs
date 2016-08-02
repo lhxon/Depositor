@@ -44,18 +44,11 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.debtDgview = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataSet1 = new System.Data.DataSet();
-            this.debtDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capitalInterest = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capital = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.interest = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.interest2sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.debtDgview)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -168,7 +161,7 @@
             // debtDgview
             // 
             this.debtDgview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.debtDgview.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.debtDgview.BackgroundColor = System.Drawing.Color.White;
             this.debtDgview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -179,12 +172,6 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.debtDgview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.debtDgview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.debtDgview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.debtDateTime,
-            this.capitalInterest,
-            this.capital,
-            this.interest,
-            this.interest2sum});
             this.debtDgview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.debtDgview.Location = new System.Drawing.Point(0, 28);
             this.debtDgview.Name = "debtDgview";
@@ -216,35 +203,6 @@
             this.label1.Text = "           还贷分析        ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dataSet1
-            // 
-            this.dataSet1.DataSetName = "NewDataSet";
-            // 
-            // debtDateTime
-            // 
-            this.debtDateTime.HeaderText = "时间";
-            this.debtDateTime.Name = "debtDateTime";
-            // 
-            // capitalInterest
-            // 
-            this.capitalInterest.HeaderText = "本息（元）";
-            this.capitalInterest.Name = "capitalInterest";
-            // 
-            // capital
-            // 
-            this.capital.HeaderText = "还本（元）";
-            this.capital.Name = "capital";
-            // 
-            // interest
-            // 
-            this.interest.HeaderText = "还息（元）";
-            this.interest.Name = "interest";
-            // 
-            // interest2sum
-            // 
-            this.interest2sum.HeaderText = "还息率";
-            this.interest2sum.Name = "interest2sum";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -259,13 +217,13 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "还投决策器";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.debtDgview)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,12 +244,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView debtDgview;
-        private System.Data.DataSet dataSet1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn debtDateTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn capitalInterest;
-        private System.Windows.Forms.DataGridViewTextBoxColumn capital;
-        private System.Windows.Forms.DataGridViewTextBoxColumn interest;
-        private System.Windows.Forms.DataGridViewTextBoxColumn interest2sum;
     }
 }
 
