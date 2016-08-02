@@ -80,7 +80,7 @@ namespace Depositer.Forms
              debt.SumDebt = Double.Parse(sumDebtTxt.Text);
              debt.TimeLength = Double.Parse(TimeLengthTxt.Text);
              debt.YearRate = Double.Parse(yearRateTxt.Text);
-
+             debt.OnDebtTime = Convert.ToDateTime(dateTimePicker1.Text);
              MGlobal.Debt = debt;
         }     
     }

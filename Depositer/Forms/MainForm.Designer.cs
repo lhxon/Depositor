@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.reloginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -160,7 +161,10 @@
             // 
             // debtDgview
             // 
+            this.debtDgview.AllowUserToAddRows = false;
+            this.debtDgview.AllowUserToDeleteRows = false;
             this.debtDgview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.debtDgview.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
             this.debtDgview.BackgroundColor = System.Drawing.Color.White;
             this.debtDgview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -175,6 +179,7 @@
             this.debtDgview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.debtDgview.Location = new System.Drawing.Point(0, 28);
             this.debtDgview.Name = "debtDgview";
+            this.debtDgview.ReadOnly = true;
             this.debtDgview.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
@@ -185,7 +190,12 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.debtDgview.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.debtDgview.RowHeadersWidth = 30;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Orange;
+            this.debtDgview.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.debtDgview.RowTemplate.Height = 23;
+            this.debtDgview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.debtDgview.Size = new System.Drawing.Size(378, 319);
             this.debtDgview.TabIndex = 1;
             // 

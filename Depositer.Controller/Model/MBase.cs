@@ -86,7 +86,7 @@ namespace Depositer.Controller.Model
                     {
                         if (dict[member.Name].ToString() == DebtType.MEqualCaptial.ToString())
                             member.SetValue(instance, DebtType.MEqualCaptial);
-                        else if(dict[member.Name].ToString() == DebtType.MEqualInterest.ToString())
+                        else if (dict[member.Name].ToString() == DebtType.MEqualInterest.ToString())
                             member.SetValue(instance, DebtType.MEqualInterest);
                     }
                     else if (member.PropertyType.Name == "TimeType")
@@ -98,6 +98,8 @@ namespace Depositer.Controller.Model
                         else if (dict[member.Name].ToString() == TimeType.Day.ToString())
                             member.SetValue(instance, TimeType.Day);
                     }
+                    else if (member.PropertyType.Name == "DateTime")
+                        member.SetValue(instance, Convert.ToDateTime(dict[member.Name]));
                     else
                         member.SetValue(instance, dict[member.Name].ToString());
                 }

@@ -3,6 +3,7 @@ using Depositer.Lib;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -90,14 +91,19 @@ namespace Depositer.Forms
         {
             try
             {
-                fillDebtDgv();
+                fillDebtDgv(this.debtDgview);
+                setDebtDgvFormat(this.debtDgview);
             }
             catch (Exception ex)
             {
                 IMessageBox.ShowWarning(ex.Message);
             }
         }
-        private void fillDebtDgv()
+      
+        /// <summary>
+        /// 为贷款分析表填充数据
+        /// </summary>
+        private void fillDebtDgv(DataGridView debtDgview)
         {
             var debt = MGlobal.Debt;
             if (debt == null)
@@ -110,18 +116,35 @@ namespace Depositer.Forms
             for(int i=1;i<debt.TimeLengthMonth+1;i++)
             {
                 var row = dataTable.NewRow();
-                var time = DateTime.Now.AddMonths(i);
+                var time = debt.OnDebtTime.AddMonths(i);
                 row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
                 row["本息（元）"] = Math.Round(debt.PaymentAt(i)*10000);
                 row["本金（元）"] = Math.Round(debt.PaymentCapitalMonth(i)*10000);
                 row["利息（元）"] = Math.Round(debt.PaymentInterestAt(i)*10000);
                 row["利息率"] = (Math.Round((Double.Parse(row["利息（元）"].ToString()) /
                                       Double.Parse(row["本息（元）"].ToString())) * 100, 0)).ToString() + "%";
+                
                 dataTable.Rows.Add(row);
             }
-            this.debtDgview.DataSource = dataTable;
+            debtDgview.DataSource = dataTable;
         }
 
+        /// <summary>
+        /// 设置表格的显示格式
+        /// </summary>
+        /// <param name="debtDgview"></param>
+        private void setDebtDgvFormat(DataGridView debtDgview)
+        {
+            //奇偶行的背景颜色设置
+            foreach(DataGridViewRow row in debtDgview.Rows)
+            {
+                if (debtDgview.Rows.IndexOf(row) % 2 == 1)
+                    row.DefaultCellStyle.BackColor = Color.White;
+                else
+                    row.DefaultCellStyle.BackColor = Color.LightGray;
+            }
 
+            var timespan = DateTime.Now.Year - MGlobal.Debt.OnDebtTime
+        }
     }
 }

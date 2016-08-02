@@ -7,6 +7,7 @@ namespace Depositer.Controller.Model
 {
     [XMLAttribute("SumDebt")]
     [XMLAttribute("DebtType")]  
+    [XMLAttribute("OnDebtTime")]
     public abstract class MDebt:MBase
     {
         private double sumDebt = 0d;
@@ -53,6 +54,8 @@ namespace Depositer.Controller.Model
             else
                 throw new ArgumentException("未设置时间类型！");
         }
+
+        public DateTime OnDebtTime { get; set; }
 
         /// <summary>
         /// 贷款类型
