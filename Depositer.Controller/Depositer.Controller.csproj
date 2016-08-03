@@ -43,14 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\DebtType.cs" />
-    <Compile Include="Model\MBase.cs" />
-    <Compile Include="Model\MGlobal.cs" />
-    <Compile Include="Model\TimeType.cs" />
-    <Compile Include="Model\MEqualCaptial.cs" />
-    <Compile Include="Model\MEqualInterest.cs" />
-    <Compile Include="Model\MDebt.cs" />
-    <Compile Include="Model\MInvestment.cs" />
+    <Compile Include="Model\Base\DebtType.cs" />
+    <Compile Include="Model\Base\MBase.cs" />
+    <Compile Include="Model\Base\MGlobal.cs" />
+    <Compile Include="Model\Base\TimeType.cs" />
+    <Compile Include="Model\Business\MEqualCaptial.cs" />
+    <Compile Include="Model\Business\MEqualInterest.cs" />
+    <Compile Include="Model\Business\MDebt.cs" />
+    <Compile Include="Model\Business\MInvestment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
