@@ -29,9 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.reloginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,14 +41,29 @@
             this.分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DebtAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.投资分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.debtDgview = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.textBoxCapAfter = new System.Windows.Forms.TextBox();
+            this.textBoxAgoScale = new System.Windows.Forms.TextBox();
+            this.textBoxCapAgo = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.checkBoxFilterDebt = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.debtDgv1 = new System.Windows.Forms.DataGridView();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.debtDgv2 = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.debtDgview)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.debtDgv1)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.debtDgv2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -62,7 +76,7 @@
             this.分析ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(776, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(814, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -140,86 +154,191 @@
             this.投资分析ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.投资分析ToolStripMenuItem.Text = "投资分析";
             // 
-            // splitContainer1
+            // panel1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 28);
-            this.splitContainer1.Name = "splitContainer1";
+            this.panel1.Controls.Add(this.groupBox3);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.groupBox2);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.textBoxCapAfter);
+            this.panel1.Controls.Add(this.textBoxAgoScale);
+            this.panel1.Controls.Add(this.textBoxCapAgo);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(3, 50);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(391, 345);
+            this.panel1.TabIndex = 5;
             // 
-            // splitContainer1.Panel1
+            // textBoxCapAfter
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer1.Panel1.Controls.Add(this.debtDgview);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.textBoxCapAfter.Location = new System.Drawing.Point(323, 153);
+            this.textBoxCapAfter.Multiline = true;
+            this.textBoxCapAfter.Name = "textBoxCapAfter";
+            this.textBoxCapAfter.Size = new System.Drawing.Size(65, 22);
+            this.textBoxCapAfter.TabIndex = 4;
             // 
-            // splitContainer1.Panel2
+            // textBoxAgoScale
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.White;
-            this.splitContainer1.Size = new System.Drawing.Size(776, 347);
-            this.splitContainer1.SplitterDistance = 378;
-            this.splitContainer1.TabIndex = 1;
+            this.textBoxAgoScale.Location = new System.Drawing.Point(211, 153);
+            this.textBoxAgoScale.Multiline = true;
+            this.textBoxAgoScale.Name = "textBoxAgoScale";
+            this.textBoxAgoScale.Size = new System.Drawing.Size(44, 22);
+            this.textBoxAgoScale.TabIndex = 3;
             // 
-            // debtDgview
+            // textBoxCapAgo
             // 
-            this.debtDgview.AllowUserToAddRows = false;
-            this.debtDgview.AllowUserToDeleteRows = false;
-            this.debtDgview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.debtDgview.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
-            this.debtDgview.BackgroundColor = System.Drawing.Color.White;
-            this.debtDgview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.AntiqueWhite;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.debtDgview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.debtDgview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.debtDgview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.debtDgview.Location = new System.Drawing.Point(0, 28);
-            this.debtDgview.Name = "debtDgview";
-            this.debtDgview.ReadOnly = true;
-            this.debtDgview.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Tan;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.debtDgview.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.debtDgview.RowHeadersWidth = 30;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.GrayText;
-            this.debtDgview.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.debtDgview.RowTemplate.Height = 23;
-            this.debtDgview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.debtDgview.Size = new System.Drawing.Size(378, 319);
-            this.debtDgview.TabIndex = 1;
+            this.textBoxCapAgo.Location = new System.Drawing.Point(68, 153);
+            this.textBoxCapAgo.Multiline = true;
+            this.textBoxCapAgo.Name = "textBoxCapAgo";
+            this.textBoxCapAgo.Size = new System.Drawing.Size(59, 22);
+            this.textBoxCapAgo.TabIndex = 2;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.dateTimePicker2);
+            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.checkBoxFilterDebt);
+            this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.Location = new System.Drawing.Point(0, 31);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(397, 398);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "贷款分析";
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.Color.DarkOrange;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label1.Font = new System.Drawing.Font("SimSun", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.ForeColor = System.Drawing.Color.Maroon;
-            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(164, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(378, 28);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "           还贷分析        ";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Size = new System.Drawing.Size(17, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "~";
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.CustomFormat = "yyyy-MM";
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker2.Location = new System.Drawing.Point(187, 23);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(87, 23);
+            this.dateTimePicker2.TabIndex = 8;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "yyyy-MM";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(71, 23);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(87, 23);
+            this.dateTimePicker1.TabIndex = 7;
+            // 
+            // checkBoxFilterDebt
+            // 
+            this.checkBoxFilterDebt.AutoSize = true;
+            this.checkBoxFilterDebt.Location = new System.Drawing.Point(13, 23);
+            this.checkBoxFilterDebt.Name = "checkBoxFilterDebt";
+            this.checkBoxFilterDebt.Size = new System.Drawing.Size(51, 21);
+            this.checkBoxFilterDebt.TabIndex = 6;
+            this.checkBoxFilterDebt.Text = "筛选";
+            this.checkBoxFilterDebt.UseVisualStyleBackColor = true;
+            this.checkBoxFilterDebt.CheckedChanged += new System.EventHandler(this.checkBoxFilterDebt_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 156);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 17);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "已还本息";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(142, 156);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 17);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "已还比例";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(261, 156);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 17);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "待还本息";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox2.Controls.Add(this.debtDgv1);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(391, 147);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "已还本息";
+            // 
+            // debtDgv1
+            // 
+            this.debtDgv1.BackgroundColor = System.Drawing.SystemColors.HighlightText;
+            this.debtDgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.debtDgv1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.debtDgv1.Location = new System.Drawing.Point(3, 19);
+            this.debtDgv1.Name = "debtDgv1";
+            this.debtDgv1.RowHeadersVisible = false;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.LimeGreen;
+            this.debtDgv1.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.debtDgv1.RowTemplate.Height = 23;
+            this.debtDgv1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.debtDgv1.ShowEditingIcon = false;
+            this.debtDgv1.Size = new System.Drawing.Size(385, 125);
+            this.debtDgv1.TabIndex = 1;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox3.Controls.Add(this.debtDgv2);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox3.Location = new System.Drawing.Point(0, 178);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(391, 167);
+            this.groupBox3.TabIndex = 3;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "待还本息";
+            // 
+            // debtDgv2
+            // 
+            this.debtDgv2.BackgroundColor = System.Drawing.SystemColors.HighlightText;
+            this.debtDgv2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.debtDgv2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.debtDgv2.Location = new System.Drawing.Point(3, 19);
+            this.debtDgv2.Name = "debtDgv2";
+            this.debtDgv2.RowHeadersVisible = false;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.LimeGreen;
+            this.debtDgv2.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            this.debtDgv2.RowTemplate.Height = 23;
+            this.debtDgv2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.debtDgv2.ShowEditingIcon = false;
+            this.debtDgv2.Size = new System.Drawing.Size(385, 145);
+            this.debtDgv2.TabIndex = 2;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(776, 375);
-            this.Controls.Add(this.splitContainer1);
+            this.ClientSize = new System.Drawing.Size(814, 434);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -230,10 +349,14 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.debtDgview)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.debtDgv1)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.debtDgv2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,9 +374,22 @@
         private System.Windows.Forms.ToolStripMenuItem 分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DebtAnalysisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 投资分析ToolStripMenuItem;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox checkBoxFilterDebt;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView debtDgview;
+        private System.Windows.Forms.TextBox textBoxCapAgo;
+        private System.Windows.Forms.TextBox textBoxCapAfter;
+        private System.Windows.Forms.TextBox textBoxAgoScale;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.DataGridView debtDgv2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView debtDgv1;
     }
 }
 

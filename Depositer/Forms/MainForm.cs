@@ -1,4 +1,5 @@
-﻿using Depositer.Controller.Model;
+﻿using Depositer.Controller.Business;
+using Depositer.Controller.Model;
 using Depositer.Lib;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,8 @@ namespace Depositer.Forms
     {
 
         private XMLTools xmlTools = new XMLTools();
-        private int dateNowInRowNo = 0;
+        private DebtAnalysis debtAnal;
+
         public MainForm()
         {
             InitializeComponent();
@@ -32,7 +34,7 @@ namespace Depositer.Forms
                 var debtDict = xmlTools.XmlAttributeDict;
                 var mobject = MBase.ConvertDictToMObject(xmlTools.XmlAttributeDict, debtDict["DebtType"].ToString());
                 MGlobal.Debt = mobject as MDebt;
-
+                debtAnal = new DebtAnalysis();
             }
             catch(Exception ex)
             {
@@ -91,65 +93,52 @@ namespace Depositer.Forms
         {
             try
             {
-                fillDebtDgv(this.debtDgview);
-                setDebtDgvFormat(this.debtDgview);
+                debtAnal.FillDebtDatagridViewBeforeTimeNow(this.debtDgv1);
+                debtAnal.FillDebtDatagridViewAfterTimeNow(this.debtDgv2);
+                debtAnal.SetDebtDataGirdViewFormat(this.debtDgv2);
+                this.textBoxCapAgo.Text = string.Format("{0}万",Math.Round(debtAnal.FinishedRepay()/1e4,2));
+                this.textBoxAgoScale.Text = string.Format("{0}%",Math.Round(debtAnal.FinishedAmountScale()*100,0));
+                this.textBoxCapAfter.Text = string.Format("{0}万",Math.Round(debtAnal.UnFinishedRepay()/1e4,2));
             }
             catch (Exception ex)
             {
                 IMessageBox.ShowWarning(ex.Message);
             }
         }
+
+        /// <summary>
+        /// 贷款分析筛选changed事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxFilterDebt_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBoxFilterDebt.Checked==true)
+            {
+                if (dateTimePicker2.Value < dateTimePicker1.Value)
+                {
+                    IMessageBox.ShowWarning("终止时间不能小于起始时间！");
+                    return;
+                }
+                try
+                {
+                    var filterDtBeforeNow = debtAnal.FilterDebtItemBeforeNow(debtAnal.DataTableBeforeNow,
+                        DateTimeExtension.ReturnYearMonth(dateTimePicker1.Value),
+                        DateTimeExtension.ReturnYearMonth(dateTimePicker2.Value));
+                    this.debtDgv1.DataSource = filterDtBeforeNow;
+                    var filterDtAfterNow = debtAnal.FilterDebtItemBeforeNow(debtAnal.DataTableAfterNow,
+                        DateTimeExtension.ReturnYearMonth(dateTimePicker1.Value),
+                        DateTimeExtension.ReturnYearMonth(dateTimePicker2.Value) );
+                    this.debtDgv2.DataSource = filterDtAfterNow;
+                }
+                catch(Exception ex)
+                {
+                    IMessageBox.ShowWarning(ex.Message);
+                }
+
+            }
+
+        }
       
-        /// <summary>
-        /// 为贷款分析表填充数据
-        /// </summary>
-        private void fillDebtDgv(DataGridView debtDgview)
-        {
-            var debt = MGlobal.Debt;
-            if (debt == null)
-                throw new ArgumentException("请先进行贷款设置！");
-            DataColumn[] columns = new DataColumn[]{new DataColumn("时间",typeof(string)),
-            new DataColumn("本息（元）",typeof(double)),new DataColumn("本金（元）",typeof(double)),
-                new DataColumn("利息（元）",typeof(double)),new DataColumn("利息率",typeof(string))};
-            var dataTable = new DataTable();
-            dataTable.Columns.AddRange(columns);
-            for(int i=1;i<debt.TimeLengthMonth+1;i++)
-            {
-                var row = dataTable.NewRow();
-                var time = debt.OnDebtTime.AddMonths(i);
-                if (DateTimeExtension.ReturnYearMonth(time) == DateTimeExtension.ReturnYearMonth(DateTime.Now))
-                    dateNowInRowNo = i;
-                row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
-                row["本息（元）"] = Math.Round(debt.PaymentAt(i)*10000);
-                row["本金（元）"] = Math.Round(debt.PaymentCapitalMonth(i)*10000);
-                row["利息（元）"] = Math.Round(debt.PaymentInterestAt(i)*10000);
-                row["利息率"] = (Math.Round((Double.Parse(row["利息（元）"].ToString()) /
-                                      Double.Parse(row["本息（元）"].ToString())) * 100, 0)).ToString() + "%";
-                
-                dataTable.Rows.Add(row);
-            }
-            debtDgview.DataSource = dataTable;            
-        }
-
-        /// <summary>
-        /// 设置表格的显示格式
-        /// </summary>
-        /// <param name="debtDgview"></param>
-        private void setDebtDgvFormat(DataGridView debtDgview)
-        {
-            //奇偶行的背景颜色设置
-            foreach(DataGridViewRow row in debtDgview.Rows)
-            {
-                if (debtDgview.Rows.IndexOf(row) % 2 == 1)
-                    row.DefaultCellStyle.BackColor = Color.White;
-                else
-                    row.DefaultCellStyle.BackColor = Color.LightGray;
-                if (Convert.ToDateTime(row.Cells[0].Value).Month == 1)
-                    row.DefaultCellStyle.BackColor = Color.Orange;
-            }
-
-            //设置当前时间月所在行未蓝色
-            debtDgview.Rows[dateNowInRowNo-1].DefaultCellStyle.BackColor = Color.Blue;
-        }
     }
 }

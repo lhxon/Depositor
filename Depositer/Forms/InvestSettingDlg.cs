@@ -36,6 +36,8 @@ namespace Depositer.Forms
                 TimeLengthTxt.Text = xmlTools.XmlAttributeDict["TimeLength"].ToString();
                 investAmountTxt.Text = investAmount.ToString();
                 investYearRateTxt.Text = xmlTools.XmlAttributeDict["XMLYearRate"].ToString();
+                makingRMBMonthTxt.Text = xmlTools.XmlAttributeDict["MakingMoneyMonth"].ToString();
+                savingTxt.Text = xmlTools.XmlAttributeDict["Saving"].ToString();
             }
             catch (Exception ex)
             {
@@ -70,7 +72,9 @@ namespace Depositer.Forms
                 TimeType = GetTimeType(), 
                 InvestmentAmount = Double.Parse(investAmountTxt.Text),
                 TimeLength = Double.Parse(TimeLengthTxt.Text) ,
-                YearRate = Double.Parse(investYearRateTxt.Text)
+                YearRate = Double.Parse(investYearRateTxt.Text),
+                MakingMoneyMonth = Double.Parse(makingRMBMonthTxt.Text),
+                Saving = Double.Parse(savingTxt.Text)
             };         
         }       
     }

@@ -41,6 +41,7 @@ namespace Depositer.Forms
                 sumDebtTxt.Text = xmlTools.XmlAttributeDict["SumDebt"].ToString();
                 TimeLengthTxt.Text = xmlTools.XmlAttributeDict["TimeLength"].ToString();
                 yearRateTxt.Text = xmlTools.XmlAttributeDict["XMLYearRate"].ToString();
+                dateTimePicker1.Text = xmlTools.XmlAttributeDict["OnDebtTime"].ToString();
             }
             catch (Exception ex)
             {

@@ -6,6 +6,8 @@ using System.Linq;
 namespace Depositer.Controller.Model
 {
     [XMLAttribute("InvestmentAmount")]
+    [XMLAttribute("MakingMoneyMonth")]
+    [XMLAttribute("Saving")]
     public class MInvestment:MBase
     {
         private double inverstmentAmount;
@@ -58,5 +60,15 @@ namespace Depositer.Controller.Model
             else
                 return timelength * DayRate;
         }
+
+        /// <summary>
+        /// 月盈余数额
+        /// </summary>
+        public double MakingMoneyMonth { get; set; }
+
+        /// <summary>
+        /// 积蓄
+        /// </summary>
+        public double Saving { get; set; }
     }
 }

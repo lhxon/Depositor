@@ -3,5 +3,7 @@
   <TimeType>Month</TimeType>
   <TimeLength>3</TimeLength>
   <InvestmentAmount>20000</InvestmentAmount>
-  <XMLYearRate>8.51</XMLYearRate>
+  <XMLYearRate>8.5</XMLYearRate>
+  <MakingMoneyMonth>8000</MakingMoneyMonth>
+  <Saving>100000</Saving>
 </Setting>
