@@ -91,7 +91,7 @@ namespace Depositer.Controller.Business
         /// </summary>
         private void setTableStructure()
         {
-            columns = new DataColumn[]{new DataColumn("时间",typeof(string)),
+            columns = new DataColumn[]{new DataColumn("时间",typeof(DateTime)),
             new DataColumn("本息（元）",typeof(double)),new DataColumn("本金（元）",typeof(double)),
                 new DataColumn("利息（元）",typeof(double)),new DataColumn("利息率",typeof(string))};           
         }
@@ -104,7 +104,7 @@ namespace Depositer.Controller.Business
         /// <param name="time"></param>
         private void setRowData(DataRow row, int i, DateTime time)
         {
-            row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
+            row["时间"] = Convert.ToDateTime(string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString()));
             row["本息（元）"] = Math.Round(debt.PaymentAt(i) * 10000);
             row["本金（元）"] = Math.Round(debt.PaymentCapitalMonth(i) * 10000);
             row["利息（元）"] = Math.Round(debt.PaymentInterestAt(i) * 10000);
@@ -152,30 +152,12 @@ namespace Depositer.Controller.Business
         /// <param name="start">yyyy-MM</param>
         /// <param name="end">yyyy-MM</param>
         /// <returns></returns>
-        public DataTable FilterDebtItemBeforeNow(DataTable dt, DateTime start, DateTime end)
+        public DataRow[] FilterDebtItem(DataTable dt, DateTime start, DateTime end)
         {
             if (dt == null)
                 throw new ArgumentNullException("内存表");
-            var rows = dt.Select(string.Format("{0}>={1} && {0}<{2}","时间",start,end));
-            if (rows == null) return new DataTable();
-            var rtndt = dt.Clone();
-            foreach(var row in rows)
-            {
-                rtndt.Rows.Add(rows);
-            }
-            return rtndt;
-            //var rtndt = dt.Clone();
-            //foreach (DataRow row in dt.Rows)
-            //{
-            //    if(start <= Convert.ToDateTime(row["时间"]) &&
-            //      Convert.ToDateTime(row["时间"]) < end)
-            //    {
-            //        var newrow = rtndt.NewRow();
-            //        newrow = row;
-            //        rtndt.Rows.Add(newrow);
-            //    }
-            //}
-            //return rtndt;
+            var rows = dt.Select(string.Format("{0}>='{1}' and {0}<'{2}'","时间",start,end));
+            return rows;
         }
 
         /// <summary>

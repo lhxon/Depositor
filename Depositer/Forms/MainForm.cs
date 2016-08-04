@@ -122,11 +122,11 @@ namespace Depositer.Forms
                 }
                 try
                 {
-                    var filterDtBeforeNow = debtAnal.FilterDebtItemBeforeNow(debtAnal.DataTableBeforeNow,
+                    var filterDtBeforeNow = debtAnal.FilterDebtItem(debtAnal.DataTableBeforeNow,
                         DateTimeExtension.ReturnYearMonth(dateTimePicker1.Value),
                         DateTimeExtension.ReturnYearMonth(dateTimePicker2.Value));
                     this.debtDgv1.DataSource = filterDtBeforeNow;
-                    var filterDtAfterNow = debtAnal.FilterDebtItemBeforeNow(debtAnal.DataTableAfterNow,
+                    var filterDtAfterNow = debtAnal.FilterDebtItem(debtAnal.DataTableAfterNow,
                         DateTimeExtension.ReturnYearMonth(dateTimePicker1.Value),
                         DateTimeExtension.ReturnYearMonth(dateTimePicker2.Value) );
                     this.debtDgv2.DataSource = filterDtAfterNow;
