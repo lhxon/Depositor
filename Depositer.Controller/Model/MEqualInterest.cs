@@ -21,10 +21,7 @@ namespace Depositer.Controller.Model
                 throw new Exception("还款金额不能小于零！");
             return payment;
         }
-        public override double PaymentAt(DateTime time)
-        {
-            return PaymentAt(GetMonthIndex(time));
-        }
+
         /// <summary>
         /// 某个月偿还的本金
         /// </summary>

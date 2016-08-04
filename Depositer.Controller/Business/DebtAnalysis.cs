@@ -30,6 +30,14 @@ namespace Depositer.Controller.Business
             debtTime = debt.OnDebtTime;
         }
 
+        ///// <summary>
+        ///// 更新debt，比如在大额还款后
+        ///// </summary>
+        ///// <param name="debt"></param>
+        //public void UpdateDebt(MDebt debt)
+        //{
+        //    this.debt = debt;
+        //}
         /// <summary>
         /// 过去的还贷内存表
         /// </summary>
@@ -69,7 +77,7 @@ namespace Depositer.Controller.Business
         /// <summary>
         /// 为贷款分析表填充数据
         /// </summary>
-        public void FillDebtDatagridViewAfterTimeNow(DataGridView debtDgview)
+        public void FillDebtDatagridViewAfterTimeNow()
         {
             dateTableAfterNow = new DataTable();
             setTableStructure();
@@ -83,17 +91,24 @@ namespace Depositer.Controller.Business
                 setRowData(row, i, time);
                 dateTableAfterNow.Rows.Add(row);
             }
-            debtDgview.DataSource = dateTableAfterNow;
         }
 
         /// <summary>
+        /// 生成的表结构
+        /// </summary>
+        internal DataColumn[] dataColumns
+        {
+            get { return columns; }
+        }
+        
+        /// <summary>
         /// 设置表的结构
         /// </summary>
-        private void setTableStructure()
+        internal void setTableStructure()
         {
             columns = new DataColumn[]{new DataColumn("时间",typeof(string)),
             new DataColumn("本息（元）",typeof(double)),new DataColumn("本金（元）",typeof(double)),
-                new DataColumn("利息（元）",typeof(double)),new DataColumn("利息率",typeof(string))};           
+                new DataColumn("利息（元）",typeof(double)),new DataColumn("利息率",typeof(string))};
         }
 
         /// <summary>
@@ -102,7 +117,7 @@ namespace Depositer.Controller.Business
         /// <param name="row"></param>
         /// <param name="i">从贷款日算起第几个月</param>
         /// <param name="time"></param>
-        private void setRowData(DataRow row, int i, DateTime time)
+        internal void setRowData(DataRow row, int i, DateTime time)
         {
             row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
             row["本息（元）"] = Math.Round(debt.PaymentAt(i) * 10000);
@@ -117,13 +132,8 @@ namespace Depositer.Controller.Business
         {
             var now = DateTimeExtension.ReturnYearMonth(DateTime.Now);
             var debttime = DateTimeExtension.ReturnYearMonth(debt.OnDebtTime);
-            int i = 0;
-            while (debttime <= now)
-            {
-                debttime = debttime.AddMonths(1);
-                ++i;
-            }
-            return debt.FinishedPaymentAt(i)*1e4;
+            int i = debt.GetMonthIndex(now);
+            return debt.FinishedPaymentAt(i);
         }
 
         /// <summary>
@@ -132,7 +142,7 @@ namespace Depositer.Controller.Business
         /// <returns></returns>
         public double FinishedAmountScale()
         {
-            return FinishedRepay() / (debt.GetSumPayment()*1e4);
+            return FinishedRepay() / debt.GetSumPayment();
         }
 
         /// <summary>
@@ -141,7 +151,48 @@ namespace Depositer.Controller.Business
         /// <returns></returns>
         public double UnFinishedRepay()
         {
-            return debt.GetSumPayment()*1e4 - FinishedRepay();
+            return debt.GetSumPayment() - FinishedRepay();
+        }
+
+        /// <summary>
+        /// 已还本金
+        /// </summary>
+        /// <returns></returns>
+        public double FinishedCaptialAmount()
+        {
+            double sumcapital=0;
+            for (int i =1 ; i <= debt.GetMonthIndex(DateTime.Now);i++ )
+            {
+                sumcapital+=debt.PaymentCapitalMonth(i);
+            }
+            return sumcapital;
+        }
+
+        /// <summary>
+        /// 未还本金
+        /// </summary>
+        /// <returns></returns>
+        public double UnFinishedCaptialAmount()
+        {
+            return debt.SumDebt - FinishedCaptialAmount();
+        }
+
+        /// <summary>
+        /// 已完成利息
+        /// </summary>
+        /// <returns></returns>
+        public double FinishedInterestAmount()
+        {
+            return FinishedRepay() - FinishedCaptialAmount();
+        }
+
+        /// <summary>
+        /// 待还利息
+        /// </summary>
+        /// <returns></returns>
+        public double UnFinishedInterestAmount()
+        {
+            return UnFinishedRepay() - UnFinishedCaptialAmount();
         }
 
         /// <summary>
@@ -152,30 +203,21 @@ namespace Depositer.Controller.Business
         /// <param name="start">yyyy-MM</param>
         /// <param name="end">yyyy-MM</param>
         /// <returns></returns>
-        public DataTable FilterDebtItemBeforeNow(DataTable dt, DateTime start, DateTime end)
+        public DataTable FilterDebtItem(DataTable dt, DateTime start, DateTime end)
         {
             if (dt == null)
                 throw new ArgumentNullException("内存表");
-            var rows = dt.Select(string.Format("{0}>={1} && {0}<{2}","时间",start,end));
-            if (rows == null) return new DataTable();
-            var rtndt = dt.Clone();
-            foreach(var row in rows)
+            //var rows = dt.Select(string.Format("{0}>='{1}' and {0}<'{2}'","时间",start,end));
+            //if (rows == null)
+            //    return new DataTable();
+            var tmpdt = dt.Clone();
+            foreach (DataRow row in dt.Rows)
             {
-                rtndt.Rows.Add(rows);
+                var time = Convert.ToDateTime(row["时间"].ToString() + "-01");
+                if (start <= time && time <= end)
+                    tmpdt.Rows.Add(row.ItemArray);
             }
-            return rtndt;
-            //var rtndt = dt.Clone();
-            //foreach (DataRow row in dt.Rows)
-            //{
-            //    if(start <= Convert.ToDateTime(row["时间"]) &&
-            //      Convert.ToDateTime(row["时间"]) < end)
-            //    {
-            //        var newrow = rtndt.NewRow();
-            //        newrow = row;
-            //        rtndt.Rows.Add(newrow);
-            //    }
-            //}
-            //return rtndt;
+            return tmpdt;
         }
 
         /// <summary>

@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\IBigRepayDebt.cs" />
     <Compile Include="Business\DebtAnalysis.cs" />
+    <Compile Include="Business\DistributionDecision.cs" />
     <Compile Include="Model\Base\DebtType.cs" />
     <Compile Include="Model\Base\MBase.cs" />
     <Compile Include="Model\Base\MGlobal.cs" />

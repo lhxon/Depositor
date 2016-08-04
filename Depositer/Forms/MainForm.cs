@@ -15,7 +15,7 @@ namespace Depositer.Forms
 
         private XMLTools xmlTools = new XMLTools();
         private DebtAnalysis debtAnal;
-
+        private IBigRepayDebt ibigRepayDebt;
         public MainForm()
         {
             InitializeComponent();
@@ -94,11 +94,16 @@ namespace Depositer.Forms
             try
             {
                 debtAnal.FillDebtDatagridViewBeforeTimeNow(this.debtDgv1);
-                debtAnal.FillDebtDatagridViewAfterTimeNow(this.debtDgv2);
+                debtAnal.FillDebtDatagridViewAfterTimeNow();
+                this.debtDgv2.DataSource = debtAnal.DataTableAfterNow;
                 debtAnal.SetDebtDataGirdViewFormat(this.debtDgv2);
-                this.textBoxCapAgo.Text = string.Format("{0}万",Math.Round(debtAnal.FinishedRepay()/1e4,2));
-                this.textBoxAgoScale.Text = string.Format("{0}%",Math.Round(debtAnal.FinishedAmountScale()*100,0));
-                this.textBoxCapAfter.Text = string.Format("{0}万",Math.Round(debtAnal.UnFinishedRepay()/1e4,2));
+                this.capInterAgoLb.Text = string.Format("{0}万", Math.Round(debtAnal.FinishedRepay(), 2));
+                //this.textBoxAgoScale.Text = string.Format("{0}%",Math.Round(debtAnal.FinishedAmountScale()*100,0));
+                this.capInterAfterLb.Text = string.Format("{0}万",Math.Round(debtAnal.UnFinishedRepay(),2));
+                this.capAgoLb.Text = string.Format("{0}万", Math.Round(debtAnal.FinishedCaptialAmount(), 2));
+                this.capAfterLb.Text = string.Format("{0}万", Math.Round(debtAnal.UnFinishedCaptialAmount(), 2));
+                this.interestAgoLb.Text = string.Format("{0}万", Math.Round(debtAnal.FinishedInterestAmount(), 2));
+                this.interestAfterLb.Text = string.Format("{0}万", Math.Round(debtAnal.UnFinishedInterestAmount(),2));
             }
             catch (Exception ex)
             {
@@ -122,11 +127,11 @@ namespace Depositer.Forms
                 }
                 try
                 {
-                    var filterDtBeforeNow = debtAnal.FilterDebtItemBeforeNow(debtAnal.DataTableBeforeNow,
+                    var filterDtBeforeNow = debtAnal.FilterDebtItem(debtAnal.DataTableBeforeNow,
                         DateTimeExtension.ReturnYearMonth(dateTimePicker1.Value),
                         DateTimeExtension.ReturnYearMonth(dateTimePicker2.Value));
                     this.debtDgv1.DataSource = filterDtBeforeNow;
-                    var filterDtAfterNow = debtAnal.FilterDebtItemBeforeNow(debtAnal.DataTableAfterNow,
+                    var filterDtAfterNow = debtAnal.FilterDebtItem(debtAnal.DataTableAfterNow,
                         DateTimeExtension.ReturnYearMonth(dateTimePicker1.Value),
                         DateTimeExtension.ReturnYearMonth(dateTimePicker2.Value) );
                     this.debtDgv2.DataSource = filterDtAfterNow;
@@ -136,6 +141,78 @@ namespace Depositer.Forms
                     IMessageBox.ShowWarning(ex.Message);
                 }
 
+            }
+            else //全部显示
+            {
+                try
+                {
+                    this.debtDgv1.DataSource = debtAnal.DataTableBeforeNow;
+                    this.debtDgv2.DataSource = debtAnal.DataTableAfterNow;
+                }
+                catch(Exception ex)
+                {
+                    IMessageBox.ShowWarning(ex.Message);
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 投资分析:考虑一年内大额还款，以及月供；投资的收益
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void investAnalysisBtn_Click(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        /// <summary>
+        /// 大额还款按钮响应事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bigRepayAfterBtn_Click(object sender, EventArgs e)
+        {
+            if(ibigRepayDebt==null)
+            {
+                IMessageBox.ShowWarning("请选择一种还款方式！");
+                return;
+            }
+            bigRepayDgv.DataSource = ibigRepayDebt.Recalculate(10);//MGlobal.Investment.Saving
+        }
+
+        /// <summary>
+        /// 大额还款的方式
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBox1.SelectedItem==null)
+            {
+                IMessageBox.ShowWarning("请选择一种还款方式！");
+                return;
+            }
+            int i = comboBox1.SelectedIndex;
+            switch(i)
+            {
+                case 0:
+
+                break;
+                case 1:
+                ibigRepayDebt = new ShortDebtYears();
+                break;
+                case 2:
+
+                break;
+                case 3:
+
+                break;
+                case 4:
+
+                break;
             }
 
         }

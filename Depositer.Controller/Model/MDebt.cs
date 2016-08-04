@@ -8,7 +8,6 @@ namespace Depositer.Controller.Model
     [XMLAttribute("SumDebt")]
     [XMLAttribute("DebtType")]  
     [XMLAttribute("OnDebtTime")]
-    [XMLAttribute("BigTimes")]
     public abstract class MDebt:MBase
     {
         private double sumDebt = 0d;
@@ -56,16 +55,7 @@ namespace Depositer.Controller.Model
                 throw new ArgumentException("未设置时间类型！");
         }
 
-        /// <summary>
-        /// 贷款日期
-        /// </summary>
         public DateTime OnDebtTime { get; set; }
-
-        /// <summary>
-        /// 大额还款次数
-        /// </summary>
-        public int BigTimes { get; set; }
-
 
         /// <summary>
         /// 贷款类型
@@ -73,32 +63,11 @@ namespace Depositer.Controller.Model
         public DebtType DebtType { get; set; }
 
         /// <summary>
-        /// 时间从还款日算起是第几个月
-        /// </summary>
-        /// <param name="time"></param>
-        /// <returns></returns>
-        internal int GetMonthIndex(DateTime time)
-        {
-            if (time < OnDebtTime)
-                throw new ArgumentException("月索引小于0");
-            var time1 = new DateTime(time.Year, time.Month, 1);
-            var tmptime = OnDebtTime;
-            int i = 0;
-            while (tmptime < time1)
-            {
-                tmptime = tmptime.AddMonths(1);
-                ++i;
-            }
-            return i;
-        }
-
-        /// <summary>
         /// 获取某个月的还款金额
         /// </summary>
         /// <param name="monthIndex">还款月的编号，从1开始</param>
         /// <returns></returns>
         public abstract double PaymentAt(int monthIndex);
-        public abstract double PaymentAt(DateTime time);
 
         /// <summary>
         /// 每月偿还的本金

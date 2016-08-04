@@ -51,6 +51,7 @@ namespace Depositer.Forms
             {
                 BuildInvestModelInstance();
                 xmlTools.UpdateXML("InvestmentSetting.xml", earnings);
+                MGlobal.Investment = earnings;
                 IsSavedOK = true;
             }
             catch (Exception ex)
@@ -75,7 +76,7 @@ namespace Depositer.Forms
                 YearRate = Double.Parse(investYearRateTxt.Text),
                 MakingMoneyMonth = Double.Parse(makingRMBMonthTxt.Text),
                 Saving = Double.Parse(savingTxt.Text)
-            };         
+            };  
         }       
     }
 }
