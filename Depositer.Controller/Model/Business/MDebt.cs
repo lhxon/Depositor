@@ -78,6 +78,7 @@ namespace Depositer.Controller.Model
         /// <param name="monthIndex">还款月的编号，从1开始</param>
         /// <returns></returns>
         public abstract double PaymentAt(int monthIndex);
+        public abstract double PaymentAt(DateTime time);
 
         /// <summary>
         /// 每月偿还的本金

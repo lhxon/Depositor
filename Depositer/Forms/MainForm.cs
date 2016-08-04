@@ -137,6 +137,29 @@ namespace Depositer.Forms
                 }
 
             }
+            else //全部显示
+            {
+                try
+                {
+                    this.debtDgv1.DataSource = debtAnal.DataTableBeforeNow;
+                    this.debtDgv2.DataSource = debtAnal.DataTableAfterNow;
+                }
+                catch(Exception ex)
+                {
+                    IMessageBox.ShowWarning(ex.Message);
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 投资分析:考虑一年内大额还款，以及月供；投资的收益
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void investAnalysisBtn_Click(object sender, EventArgs e)
+        {
+
 
         }
       

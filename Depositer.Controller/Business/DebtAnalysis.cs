@@ -91,9 +91,9 @@ namespace Depositer.Controller.Business
         /// </summary>
         private void setTableStructure()
         {
-            columns = new DataColumn[]{new DataColumn("时间",typeof(DateTime)),
+            columns = new DataColumn[]{new DataColumn("时间",typeof(string)),
             new DataColumn("本息（元）",typeof(double)),new DataColumn("本金（元）",typeof(double)),
-                new DataColumn("利息（元）",typeof(double)),new DataColumn("利息率",typeof(string))};           
+                new DataColumn("利息（元）",typeof(double)),new DataColumn("利息率",typeof(string))};
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Depositer.Controller.Business
         /// <param name="time"></param>
         private void setRowData(DataRow row, int i, DateTime time)
         {
-            row["时间"] = Convert.ToDateTime(string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString()));
+            row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
             row["本息（元）"] = Math.Round(debt.PaymentAt(i) * 10000);
             row["本金（元）"] = Math.Round(debt.PaymentCapitalMonth(i) * 10000);
             row["利息（元）"] = Math.Round(debt.PaymentInterestAt(i) * 10000);
@@ -123,7 +123,7 @@ namespace Depositer.Controller.Business
                 debttime = debttime.AddMonths(1);
                 ++i;
             }
-            return debt.FinishedPaymentAt(i)*1e4;
+            return debt.FinishedPaymentAt(i) * 1e4;
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Depositer.Controller.Business
         /// <returns></returns>
         public double FinishedAmountScale()
         {
-            return FinishedRepay() / (debt.GetSumPayment()*1e4);
+            return FinishedRepay() / (debt.GetSumPayment() * 1e4);
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace Depositer.Controller.Business
         /// <returns></returns>
         public double UnFinishedRepay()
         {
-            return debt.GetSumPayment()*1e4 - FinishedRepay();
+            return debt.GetSumPayment() * 1e4 - FinishedRepay();
         }
 
         /// <summary>
@@ -152,12 +152,21 @@ namespace Depositer.Controller.Business
         /// <param name="start">yyyy-MM</param>
         /// <param name="end">yyyy-MM</param>
         /// <returns></returns>
-        public DataRow[] FilterDebtItem(DataTable dt, DateTime start, DateTime end)
+        public DataTable FilterDebtItem(DataTable dt, DateTime start, DateTime end)
         {
             if (dt == null)
                 throw new ArgumentNullException("内存表");
-            var rows = dt.Select(string.Format("{0}>='{1}' and {0}<'{2}'","时间",start,end));
-            return rows;
+            //var rows = dt.Select(string.Format("{0}>='{1}' and {0}<'{2}'","时间",start,end));
+            //if (rows == null)
+            //    return new DataTable();
+            var tmpdt = dt.Clone();
+            foreach (DataRow row in dt.Rows)
+            {
+                var time = Convert.ToDateTime(row["时间"].ToString() + "-01");
+                if (start <= time && time <= end)
+                    tmpdt.Rows.Add(row.ItemArray);
+            }
+            return tmpdt;
         }
 
         /// <summary>
