@@ -100,7 +100,9 @@ namespace Depositer.Controller.Model
                     }
                     else if (member.PropertyType.Name == "DateTime")
                         member.SetValue(instance, Convert.ToDateTime(dict[member.Name]));
-                    else
+                    else if (member.PropertyType.Name == "Int32")
+                        member.SetValue(instance, Convert.ToInt32(dict[member.Name]));
+                    else 
                         member.SetValue(instance, dict[member.Name].ToString());
                 }
             }

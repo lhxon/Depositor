@@ -42,6 +42,7 @@ namespace Depositer.Forms
                 TimeLengthTxt.Text = xmlTools.XmlAttributeDict["TimeLength"].ToString();
                 yearRateTxt.Text = xmlTools.XmlAttributeDict["XMLYearRate"].ToString();
                 dateTimePicker1.Text = xmlTools.XmlAttributeDict["OnDebtTime"].ToString();
+                bigTimesTxt.Text = xmlTools.XmlAttributeDict["BigTimes"].ToString();
             }
             catch (Exception ex)
             {
@@ -82,6 +83,7 @@ namespace Depositer.Forms
              debt.TimeLength = Double.Parse(TimeLengthTxt.Text);
              debt.YearRate = Double.Parse(yearRateTxt.Text);
              debt.OnDebtTime = Convert.ToDateTime(dateTimePicker1.Text);
+             debt.BigTimes = Int32.Parse(bigTimesTxt.Text);
              MGlobal.Debt = debt;
         }     
     }
