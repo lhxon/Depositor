@@ -1,4 +1,4 @@
-﻿using Depositer.Controller.Model;
+using Depositer.Controller.Model;
 using Depositer.Lib;
 using System;
 using System.Collections.Generic;
@@ -30,6 +30,14 @@ namespace Depositer.Controller.Business
             debtTime = debt.OnDebtTime;
         }
 
+        ///// <summary>
+        ///// 更新debt，比如在大额还款后
+        ///// </summary>
+        ///// <param name="debt"></param>
+        //public void UpdateDebt(MDebt debt)
+        //{
+        //    this.debt = debt;
+        //}
         /// <summary>
         /// 过去的还贷内存表
         /// </summary>
@@ -69,7 +77,7 @@ namespace Depositer.Controller.Business
         /// <summary>
         /// 为贷款分析表填充数据
         /// </summary>
-        public void FillDebtDatagridViewAfterTimeNow(DataGridView debtDgview)
+        public void FillDebtDatagridViewAfterTimeNow()
         {
             dateTableAfterNow = new DataTable();
             setTableStructure();
@@ -83,13 +91,20 @@ namespace Depositer.Controller.Business
                 setRowData(row, i, time);
                 dateTableAfterNow.Rows.Add(row);
             }
-            debtDgview.DataSource = dateTableAfterNow;
         }
 
         /// <summary>
+        /// 生成的表结构
+        /// </summary>
+        internal DataColumn[] dataColumns
+        {
+            get { return columns; }
+        }
+        
+        /// <summary>
         /// 设置表的结构
         /// </summary>
-        private void setTableStructure()
+        internal void setTableStructure()
         {
             columns = new DataColumn[]{new DataColumn("时间",typeof(string)),
             new DataColumn("本息（元）",typeof(double)),new DataColumn("本金（元）",typeof(double)),
@@ -102,7 +117,7 @@ namespace Depositer.Controller.Business
         /// <param name="row"></param>
         /// <param name="i">从贷款日算起第几个月</param>
         /// <param name="time"></param>
-        private void setRowData(DataRow row, int i, DateTime time)
+        internal void setRowData(DataRow row, int i, DateTime time)
         {
             row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
             row["本息（元）"] = Math.Round(debt.PaymentAt(i) * 10000);
@@ -117,13 +132,8 @@ namespace Depositer.Controller.Business
         {
             var now = DateTimeExtension.ReturnYearMonth(DateTime.Now);
             var debttime = DateTimeExtension.ReturnYearMonth(debt.OnDebtTime);
-            int i = 0;
-            while (debttime <= now)
-            {
-                debttime = debttime.AddMonths(1);
-                ++i;
-            }
-            return debt.FinishedPaymentAt(i) * 1e4;
+            int i = debt.GetMonthIndex(now);
+            return debt.FinishedPaymentAt(i);
         }
 
         /// <summary>
@@ -132,7 +142,7 @@ namespace Depositer.Controller.Business
         /// <returns></returns>
         public double FinishedAmountScale()
         {
-            return FinishedRepay() / (debt.GetSumPayment() * 1e4);
+            return FinishedRepay() / debt.GetSumPayment();
         }
 
         /// <summary>
@@ -141,7 +151,48 @@ namespace Depositer.Controller.Business
         /// <returns></returns>
         public double UnFinishedRepay()
         {
-            return debt.GetSumPayment() * 1e4 - FinishedRepay();
+            return debt.GetSumPayment() - FinishedRepay();
+        }
+
+        /// <summary>
+        /// 已还本金
+        /// </summary>
+        /// <returns></returns>
+        public double FinishedCaptialAmount()
+        {
+            double sumcapital=0;
+            for (int i =1 ; i <= debt.GetMonthIndex(DateTime.Now);i++ )
+            {
+                sumcapital+=debt.PaymentCapitalMonth(i);
+            }
+            return sumcapital;
+        }
+
+        /// <summary>
+        /// 未还本金
+        /// </summary>
+        /// <returns></returns>
+        public double UnFinishedCaptialAmount()
+        {
+            return debt.SumDebt - FinishedCaptialAmount();
+        }
+
+        /// <summary>
+        /// 已完成利息
+        /// </summary>
+        /// <returns></returns>
+        public double FinishedInterestAmount()
+        {
+            return FinishedRepay() - FinishedCaptialAmount();
+        }
+
+        /// <summary>
+        /// 待还利息
+        /// </summary>
+        /// <returns></returns>
+        public double UnFinishedInterestAmount()
+        {
+            return UnFinishedRepay() - UnFinishedCaptialAmount();
         }
 
         /// <summary>
