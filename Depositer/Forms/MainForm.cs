@@ -1,4 +1,4 @@
-﻿using Depositer.Controller.Business;
+using Depositer.Controller.Business;
 using Depositer.Controller.Model;
 using Depositer.Lib;
 using System;
@@ -218,6 +218,55 @@ namespace Depositer.Forms
 =======
 
 >>>>>>> 79b1ac8dc8a03f93c7d284d2e1f3c04b0c7f190a
+
+        }
+
+        /// <summary>
+        /// 大额还款按钮响应事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bigRepayAfterBtn_Click(object sender, EventArgs e)
+        {
+            if(ibigRepayDebt==null)
+            {
+                IMessageBox.ShowWarning("请选择一种还款方式！");
+                return;
+            }
+            bigRepayDgv.DataSource = ibigRepayDebt.Recalculate(10);//MGlobal.Investment.Saving
+        }
+
+        /// <summary>
+        /// 大额还款的方式
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBox1.SelectedItem==null)
+            {
+                IMessageBox.ShowWarning("请选择一种还款方式！");
+                return;
+            }
+            int i = comboBox1.SelectedIndex;
+            switch(i)
+            {
+                case 0:
+
+                break;
+                case 1:
+                ibigRepayDebt = new ShortDebtYears();
+                break;
+                case 2:
+
+                break;
+                case 3:
+
+                break;
+                case 4:
+
+                break;
+            }
 
         }
       

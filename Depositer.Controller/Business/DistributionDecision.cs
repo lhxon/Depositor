@@ -1,4 +1,4 @@
-﻿using Depositer.Controller.Model;
+using Depositer.Controller.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -123,7 +123,11 @@ namespace Depositer.Controller.Model
             int i = GetMonthIndex(time);
             return SumDebt - i*PaymentCapitalMonth(i); 
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 5218e39bb05cbbfabf5fd30d90bb2007394de99a
         /// <summary>
         /// 显示某个月的下一个月的还款额度
         /// </summary>

@@ -1,4 +1,4 @@
-﻿namespace Depositer.Forms
+namespace Depositer.Forms
 {
     partial class MainForm
     {
