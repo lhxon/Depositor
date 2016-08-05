@@ -114,6 +114,17 @@ namespace Depositer.Controller.Model
         }
 
         /// <summary>
+        /// 在某个月(已月供完本月的)还剩余要还的本金
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public double LeftCaptialAt(DateTime time)
+        {
+            int i = GetMonthIndex(time);
+            return SumDebt - i*PaymentCapitalMonth(i); 
+        }
+        
+        /// <summary>
         /// 显示某个月的下一个月的还款额度
         /// </summary>
         /// <param name="monthIndex"></param>
