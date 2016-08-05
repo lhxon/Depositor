@@ -47,7 +47,6 @@ namespace Depositer.Forms
             this.DebtAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.投资分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-<<<<<<< HEAD
             this.interestAgoLb = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.interestAfterLb = new System.Windows.Forms.Label();
@@ -726,8 +725,6 @@ namespace Depositer.Forms
             this.bigRepayDgv.Location = new System.Drawing.Point(3, 17);
             this.bigRepayDgv.Name = "bigRepayDgv";
             this.bigRepayDgv.RowHeadersVisible = false;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.LimeGreen;
-            this.bigRepayDgv.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.bigRepayDgv.RowTemplate.Height = 23;
             this.bigRepayDgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.bigRepayDgv.ShowEditingIcon = false;
