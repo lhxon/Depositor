@@ -164,6 +164,7 @@ namespace Depositer.Forms
         /// <param name="e"></param>
         private void investAnalysisBtn_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             
 
         }
@@ -214,6 +215,9 @@ namespace Depositer.Forms
 
                 break;
             }
+=======
+
+>>>>>>> 79b1ac8dc8a03f93c7d284d2e1f3c04b0c7f190a
 
         }
       

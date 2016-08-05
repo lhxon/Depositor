@@ -11,6 +11,26 @@ namespace Depositer.Controller.Model
     {
 
         /// <summary>
+        /// 时间从还款日算起是第几个月
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        internal int GetMonthIndex(DateTime time)
+        {
+            if (time < OnDebtTime)
+               throw new ArgumentException("月索引小于0");
+            var time1 = new DateTime(time.Year, time.Month, 1);
+            var tmptime = OnDebtTime;
+            int i = 0;
+            while (tmptime < time1)
+            {
+                tmptime = tmptime.AddMonths(1);
+                ++i;
+            }
+            return i;
+        }
+
+        /// <summary>
         /// 获取某个月的还款金额
         /// </summary>
         /// 异常：monthIndex小于零
