@@ -1,4 +1,4 @@
-﻿using Depositer.Controller.Model;
+using Depositer.Controller.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +30,16 @@ namespace Depositer.Controller.Business
 
         /// <summary>
         /// 钱分布决策
-        /// 假定一年内只有一次大额还款机会；假定投资时长1个月
+        /// 假定一年内只有一次大额还款机会；假定投资时长1个月;假定投资时此刻所在的月份
         /// </summary>
         public void DecideDistribution()
         {
-            double invest = MGlobal.Investment.GetIncomeAmount();
-            MGlobal.Debt.PaymentAt()
+            //double invest = MGlobal.Investment.GetIncomeAmount();
+            //double debtAmount = MGlobal.Debt.PaymentAt(DateTime.Now);
+            //if(invest<debtAmount) //选择还贷
+            //{
+
+            //}
         }
 
     }
