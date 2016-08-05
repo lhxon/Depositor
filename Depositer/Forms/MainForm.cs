@@ -94,11 +94,16 @@ namespace Depositer.Forms
             try
             {
                 debtAnal.FillDebtDatagridViewBeforeTimeNow(this.debtDgv1);
-                debtAnal.FillDebtDatagridViewAfterTimeNow(this.debtDgv2);
+                debtAnal.FillDebtDatagridViewAfterTimeNow();
+                this.debtDgv2.DataSource = debtAnal.DataTableAfterNow;
                 debtAnal.SetDebtDataGirdViewFormat(this.debtDgv2);
-                this.textBoxCapAgo.Text = string.Format("{0}万",Math.Round(debtAnal.FinishedRepay()/1e4,2));
-                this.textBoxAgoScale.Text = string.Format("{0}%",Math.Round(debtAnal.FinishedAmountScale()*100,0));
-                this.textBoxCapAfter.Text = string.Format("{0}万",Math.Round(debtAnal.UnFinishedRepay()/1e4,2));
+                this.capInterAgoLb.Text = string.Format("{0}万", Math.Round(debtAnal.FinishedRepay(), 2));
+                //this.textBoxAgoScale.Text = string.Format("{0}%",Math.Round(debtAnal.FinishedAmountScale()*100,0));
+                this.capInterAfterLb.Text = string.Format("{0}万",Math.Round(debtAnal.UnFinishedRepay(),2));
+                this.capAgoLb.Text = string.Format("{0}万", Math.Round(debtAnal.FinishedCaptialAmount(), 2));
+                this.capAfterLb.Text = string.Format("{0}万", Math.Round(debtAnal.UnFinishedCaptialAmount(), 2));
+                this.interestAgoLb.Text = string.Format("{0}万", Math.Round(debtAnal.FinishedInterestAmount(), 2));
+                this.interestAfterLb.Text = string.Format("{0}万", Math.Round(debtAnal.UnFinishedInterestAmount(),2));
             }
             catch (Exception ex)
             {
