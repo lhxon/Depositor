@@ -9,27 +9,6 @@ namespace Depositer.Controller.Model
     /// </summary>
     public class MEqualCaptial:MDebt
     {
-
-        /// <summary>
-        /// 时间从还款日算起是第几个月
-        /// </summary>
-        /// <param name="time"></param>
-        /// <returns></returns>
-        internal int GetMonthIndex(DateTime time)
-        {
-            if (time < OnDebtTime)
-               throw new ArgumentException("月索引小于0");
-            var time1 = new DateTime(time.Year, time.Month, 1);
-            var tmptime = OnDebtTime;
-            int i = 0;
-            while (tmptime < time1)
-            {
-                tmptime = tmptime.AddMonths(1);
-                ++i;
-            }
-            return i;
-        }
-
         /// <summary>
         /// 获取某个月的还款金额
         /// </summary>
@@ -56,7 +35,14 @@ namespace Depositer.Controller.Model
                 throw new ArgumentException("月索引小于0");
             return SumDebt / TimeLengthMonth;
         }
-
+        /// <summary>
+        /// 每月偿还的本金
+        /// </summary>
+        public override double PaymentCapitalMonth(DateTime time)
+        {
+            int i = GetMonthIndex(time);
+            return PaymentCapitalMonth(i);
+        }
         /// <summary>
         /// 在某个月偿还的利息
         /// </summary>
@@ -68,7 +54,16 @@ namespace Depositer.Controller.Model
                 throw new ArgumentException("月索引小于0");
             return (SumDebt - (monthIndex - 1) * PaymentCapitalMonth(monthIndex)) * MonthDebtRate;
         }
-
+        /// <summary>
+        /// 在某个月偿还的利息
+        /// </summary>
+        /// <param name="monthIndex"></param>
+        /// <returns></returns>
+        public override double PaymentInterestAt(DateTime time)
+        {
+            int i = GetMonthIndex(time);
+            return PaymentInterestAt(i);
+        }
 
         /// <summary>
         /// 获取等额本金需要的总还款额
@@ -114,11 +109,11 @@ namespace Depositer.Controller.Model
         }
 
         /// <summary>
-        /// 在某个月(已月供完本月的)还剩余要还的本金
+        /// 在某个月(已供完本月的)还剩余要还的本金
         /// </summary>
         /// <param name="time"></param>
         /// <returns></returns>
-        public double LeftCaptialAt(DateTime time)
+        public override double LeftCapitalAt(DateTime time)
         {
             int i = GetMonthIndex(time);
             return SumDebt - i*PaymentCapitalMonth(i); 

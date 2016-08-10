@@ -32,7 +32,14 @@ namespace Depositer.Controller.Model
         {
             return PaymentAt(monthIndex) - PaymentInterestAt(monthIndex);
         }
-
+        /// <summary>
+        /// 某个月偿还的本金
+        /// </summary>
+        public override double PaymentCapitalMonth(DateTime time)
+        {
+            int i = GetMonthIndex(time);
+            return PaymentAt(i) - PaymentInterestAt(i);
+        }
         /// <summary>
         /// 某个月偿还的利息
         /// </summary>
@@ -41,6 +48,17 @@ namespace Depositer.Controller.Model
         public override double PaymentInterestAt(int monthIndex)
         {
             return (SumDebt - (monthIndex - 1) * PaymentAt(monthIndex)) * MonthDebtRate;
+        }
+
+        /// <summary>
+        /// 某个月偿还的利息
+        /// </summary>
+        /// <param name="monthIndex"></param>
+        /// <returns></returns>
+        public override double PaymentInterestAt(DateTime time)
+        {
+            int i = GetMonthIndex(time);
+            return PaymentInterestAt(i);
         }
 
         /// <summary>
@@ -72,5 +90,18 @@ namespace Depositer.Controller.Model
             return GetSumPayment() - FinishedPaymentAt(monthIndex);
         }
 
+        /// <summary>
+        /// 在某个月(已供完本月的)还剩余要还的本金
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public override double LeftCapitalAt(DateTime time)
+        {
+            int mi = GetMonthIndex(time);
+            double sum =0;
+            for(int i=1;i<=mi;i++)
+                sum+=PaymentCapitalMonth(i);
+            return SumDebt - sum;
+        }
     }
 }

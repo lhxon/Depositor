@@ -127,6 +127,21 @@ namespace Depositer.Controller.Business
                                   Double.Parse(row["本息（元）"].ToString())) * 100, 0)).ToString() + "%";
         }
 
+        /// <summary>
+        /// 设置行数据
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="i">从贷款日算起第几个月</param>
+        /// <param name="time"></param>
+        internal void setRowData(DataRow row, DateTime time)
+        {
+            row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
+            row["本息（元）"] = Math.Round(debt.PaymentAt(time) * 10000);
+            row["本金（元）"] = Math.Round(debt.PaymentCapitalMonth(time) * 10000);
+            row["利息（元）"] = Math.Round(debt.PaymentInterestAt(time) * 10000);
+            row["利息率"] = (Math.Round((Double.Parse(row["利息（元）"].ToString()) /
+                                  Double.Parse(row["本息（元）"].ToString())) * 100, 0)).ToString() + "%";
+        }
 
         public double FinishedRepay()
         {
@@ -136,6 +151,13 @@ namespace Depositer.Controller.Business
             return debt.FinishedPaymentAt(i);
         }
 
+        public double FinishedCapitalRepay()
+        {
+            var now = DateTimeExtension.ReturnYearMonth(DateTime.Now);
+            var debttime = DateTimeExtension.ReturnYearMonth(debt.OnDebtTime);
+            //int i = debt.GetMonthIndex(now);
+            return MGlobal.Debt.SumDebt - debt.LeftCapitalAt(DateTime.Now);
+        }
         /// <summary>
         /// 已还款比例
         /// </summary>
@@ -218,27 +240,6 @@ namespace Depositer.Controller.Business
                     tmpdt.Rows.Add(row.ItemArray);
             }
             return tmpdt;
-        }
-
-        /// <summary>
-        /// 设置表格的显示格式
-        /// </summary>
-        /// <param name="debtDgview"></param>
-        public void SetDebtDataGirdViewFormat(DataGridView debtDgview)
-        {
-            //奇偶行的背景颜色设置
-            foreach (DataGridViewRow row in debtDgview.Rows)
-            {
-                if (debtDgview.Rows.IndexOf(row) % 2 == 1)
-                    row.DefaultCellStyle.BackColor = Color.White;
-                else
-                    row.DefaultCellStyle.BackColor = Color.LightGray;
-                //if (Convert.ToDateTime(row.Cells[0].Value).Month == 1)
-                //    row.DefaultCellStyle.BackColor = Color.Orange;
-            }
-
-            //设置当前时间月所在行颜色
-            //debtDgview.Rows[dateNowInRowNo - 1].DefaultCellStyle.BackColor = SystemColors.WindowText;
         }
     }
 }

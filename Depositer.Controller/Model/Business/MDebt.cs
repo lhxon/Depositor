@@ -104,14 +104,14 @@ namespace Depositer.Controller.Model
         /// 每月偿还的本金
         /// </summary>
         public abstract double PaymentCapitalMonth(int monthIndex);
-
+        public abstract double PaymentCapitalMonth(DateTime time);
         /// <summary>
         /// 在某个月偿还的利息
         /// </summary>
         /// <param name="monthIndex"></param>
         /// <returns></returns>
         public abstract double PaymentInterestAt(int monthIndex);
-
+        public abstract double PaymentInterestAt(DateTime time);
         /// <summary>
         /// 获取等额本金需要的总还款额
         /// </summary>
@@ -130,6 +130,12 @@ namespace Depositer.Controller.Model
         /// </summary>
         /// <param name="monthIndex"></param>
         /// <returns></returns>
-        public abstract double LeftDebtAt(int monthIndex);       
+        public abstract double LeftDebtAt(int monthIndex);
+        /// <summary>
+        /// 剩余还款总本金
+        /// </summary>
+        /// <param name="monthIndex"></param>
+        /// <returns></returns>
+        public abstract double LeftCapitalAt(DateTime time);
     }
 }

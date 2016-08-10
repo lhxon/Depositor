@@ -30,11 +30,18 @@ namespace Depositer.Forms
         {
             try
             {
+                //加载贷款设置数据
                 xmlTools.ReadFromXML("DebtSetting.xml", typeof(MDebt));
                 var debtDict = xmlTools.XmlAttributeDict;
                 var mobject = MBase.ConvertDictToMObject(xmlTools.XmlAttributeDict, debtDict["DebtType"].ToString());
                 MGlobal.Debt = mobject as MDebt;
+
                 debtAnal = new DebtAnalysis();
+                //加载投资设置数据
+                xmlTools.ReadFromXML("InvestmentSetting.xml", typeof(MDebt));
+                var investDict = xmlTools.XmlAttributeDict;
+                var invobject = MBase.ConvertDictToMObject(xmlTools.XmlAttributeDict, "MInvestment");
+                MGlobal.Investment = invobject as MInvestment;
             }
             catch(Exception ex)
             {
@@ -96,7 +103,7 @@ namespace Depositer.Forms
                 debtAnal.FillDebtDatagridViewBeforeTimeNow(this.debtDgv1);
                 debtAnal.FillDebtDatagridViewAfterTimeNow();
                 this.debtDgv2.DataSource = debtAnal.DataTableAfterNow;
-                debtAnal.SetDebtDataGirdViewFormat(this.debtDgv2);
+                DataGridViewDesign.SetDebtDataGirdViewFormat(this.debtDgv2);
                 this.capInterAgoLb.Text = string.Format("{0}万", Math.Round(debtAnal.FinishedRepay(), 2));
                 //this.textBoxAgoScale.Text = string.Format("{0}%",Math.Round(debtAnal.FinishedAmountScale()*100,0));
                 this.capInterAfterLb.Text = string.Format("{0}万",Math.Round(debtAnal.UnFinishedRepay(),2));
@@ -181,7 +188,11 @@ namespace Depositer.Forms
                 IMessageBox.ShowWarning("请选择一种还款方式！");
                 return;
             }
-            bigRepayDgv.DataSource = ibigRepayDebt.Recalculate(10);//MGlobal.Investment.Saving
+            bigRepayDgv.DataSource = ibigRepayDebt.Recalculate(MGlobal.Investment.Saving/10000);//MGlobal.Investment.Saving
+            DataGridViewDesign.SetDebtDataGirdViewFormat(this.bigRepayDgv);
+            this.bigRepayCapInterLb.Text = string.Format("{0}万",ibigRepayDebt.LeftSumCapitalInterest.ToString());
+            this.bigRepayCapLb.Text = string.Format("{0}万",ibigRepayDebt.LeftSumCapital.ToString());
+            this.bigRepayInterLb.Text = string.Format("{0}万",ibigRepayDebt.LeftSumInterest.ToString());
         }
 
         /// <summary>
@@ -203,7 +214,7 @@ namespace Depositer.Forms
 
                 break;
                 case 1:
-                ibigRepayDebt = new ShortDebtYears();
+                ibigRepayDebt = new ShortYearsBigRepay();
                 break;
                 case 2:
 
