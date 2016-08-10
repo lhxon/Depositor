@@ -43,9 +43,10 @@ namespace Depositer.Controller.Business
         }
         public DataTable Recalculate(double bigRepayAmount)
         {
-            sumDebt = MGlobal.Debt.SumDebt;
+            sumDebt = GlobalObject.Debt.SumDebt;
             sumDebt -= bigRepayAmount;
-            sumDebt -= debtAna.FinishedCapitalRepay();
+            sumDebt -= GlobalObject.Debt.FinishedPaymentSumAt(DateTime.Now);
+            
             if (sumDebt < 0)
             {
                 IMessageBox.ShowWarning(string.Format("{0}万元即将全部还清所有贷款！", bigRepayAmount));

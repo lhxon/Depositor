@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace Depositer.Controller.Business
 {
     /// <summary>
-    /// 贷款分析界面及业务逻辑类
+    /// 贷款分析界面的业务逻辑类
     /// </summary>
     public class DebtAnalysis
     {
@@ -24,7 +24,7 @@ namespace Depositer.Controller.Business
 
         public DebtAnalysis()
         {
-            debt = MGlobal.Debt;
+            debt = GlobalObject.Debt;
             if (debt == null)
                 throw new ArgumentException("请先进行贷款设置！");
             debtTime = debt.OnDebtTime;
@@ -62,7 +62,7 @@ namespace Depositer.Controller.Business
             dateTableBeforeNow = new DataTable();
             setTableStructure();
             dateTableBeforeNow.Columns.AddRange(columns);
-            for (int i = 1; i < debt.TimeLengthMonth + 1; i++)
+            for (int i = 1; i < debt.TimeLength + 1; i++)
             {
                 var row = dateTableBeforeNow.NewRow();
                 var time = debtTime.AddMonths(i);
@@ -82,7 +82,7 @@ namespace Depositer.Controller.Business
             dateTableAfterNow = new DataTable();
             setTableStructure();
             dateTableAfterNow.Columns.AddRange(columns);
-            for (int i = 1; i < debt.TimeLengthMonth + 1; i++)
+            for (int i = 1; i < debt.TimeLength + 1; i++)
             {
                 var row = dateTableAfterNow.NewRow();
                 var time = debtTime.AddMonths(i);
@@ -142,81 +142,7 @@ namespace Depositer.Controller.Business
             row["利息率"] = (Math.Round((Double.Parse(row["利息（元）"].ToString()) /
                                   Double.Parse(row["本息（元）"].ToString())) * 100, 0)).ToString() + "%";
         }
-
-        public double FinishedRepay()
-        {
-            var now = DateTimeExtension.ReturnYearMonth(DateTime.Now);
-            var debttime = DateTimeExtension.ReturnYearMonth(debt.OnDebtTime);
-            int i = debt.GetMonthIndex(now);
-            return debt.FinishedPaymentAt(i);
-        }
-
-        public double FinishedCapitalRepay()
-        {
-            var now = DateTimeExtension.ReturnYearMonth(DateTime.Now);
-            var debttime = DateTimeExtension.ReturnYearMonth(debt.OnDebtTime);
-            //int i = debt.GetMonthIndex(now);
-            return MGlobal.Debt.SumDebt - debt.LeftCapitalAt(DateTime.Now);
-        }
-        /// <summary>
-        /// 已还款比例
-        /// </summary>
-        /// <returns></returns>
-        public double FinishedAmountScale()
-        {
-            return FinishedRepay() / debt.GetSumPayment();
-        }
-
-        /// <summary>
-        /// 未还数额
-        /// </summary>
-        /// <returns></returns>
-        public double UnFinishedRepay()
-        {
-            return debt.GetSumPayment() - FinishedRepay();
-        }
-
-        /// <summary>
-        /// 已还本金
-        /// </summary>
-        /// <returns></returns>
-        public double FinishedCaptialAmount()
-        {
-            double sumcapital=0;
-            for (int i =1 ; i <= debt.GetMonthIndex(DateTime.Now);i++ )
-            {
-                sumcapital+=debt.PaymentCapitalMonth(i);
-            }
-            return sumcapital;
-        }
-
-        /// <summary>
-        /// 未还本金
-        /// </summary>
-        /// <returns></returns>
-        public double UnFinishedCaptialAmount()
-        {
-            return debt.SumDebt - FinishedCaptialAmount();
-        }
-
-        /// <summary>
-        /// 已完成利息
-        /// </summary>
-        /// <returns></returns>
-        public double FinishedInterestAmount()
-        {
-            return FinishedRepay() - FinishedCaptialAmount();
-        }
-
-        /// <summary>
-        /// 待还利息
-        /// </summary>
-        /// <returns></returns>
-        public double UnFinishedInterestAmount()
-        {
-            return UnFinishedRepay() - UnFinishedCaptialAmount();
-        }
-
+       
         /// <summary>
         /// 过滤表
         /// 异常：参数为空

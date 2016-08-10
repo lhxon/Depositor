@@ -9,27 +9,30 @@ using System.Threading.Tasks;
 namespace Depositer.Controller.Model
 {
     /// <summary>
-    /// 模型基类
+    /// 系统模型基类（模型超类）
     /// </summary>
     [XMLAttribute("XMLYearRate")]
     [XMLAttribute("TimeType")]
     [XMLAttribute("TimeLength")]
-    public class MBase
+    public class MRoot
     {
 
-        protected double timelength;
+        private double timelength;
         /// <summary>
         /// 时长
         /// 异常 LessOrEquZeroException
         /// </summary>
         public double TimeLength
         {
-            get { return timelength; }
+            get 
+            {
+                return converttimeLengthToMonth(); 
+            }
             set
             {
                 if (value <= 0)
                     throw new LessOrEquZeroException(value);
-                timelength = value;
+                timelength = value;               
             }
         }
 
@@ -65,9 +68,27 @@ namespace Depositer.Controller.Model
         }
 
         /// <summary>
-        /// 将xml字典转化为业务模型对象
-        /// 异常： ArgumentNullException
+        /// 统一转化时间单位为月
         /// </summary>
+        /// <returns></returns>
+        protected double converttimeLengthToMonth()
+        {
+            if (TimeType == TimeType.Year)
+                return timelength * 12;
+            else if (TimeType == TimeType.Day)
+                return timelength / 30;
+            else if (TimeType == TimeType.Month)
+                return timelength;
+            else
+                throw new ArgumentException("未设置时间类型");
+        }
+
+        /// <summary>
+        /// 将xml字典转化为模型实例
+        /// </summary>
+        /// <param name="dict"></param>
+        /// <param name="objTypeName"></param>
+        /// <returns></returns>
         public static object ConvertDictToMObject(Dictionary<object,object> dict, string objTypeName)
         {
             if (dict == null)

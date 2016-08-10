@@ -49,14 +49,14 @@
     <Compile Include="Business\DebtAnalysis.cs" />
     <Compile Include="Business\DistributionDecision.cs" />
     <Compile Include="Business\ShortYearsBigRepay.cs" />
-    <Compile Include="Model\Base\DebtType.cs" />
-    <Compile Include="Model\Base\MBase.cs" />
-    <Compile Include="Model\Base\MGlobal.cs" />
-    <Compile Include="Model\Base\TimeType.cs" />
-    <Compile Include="Model\Business\MEqualCaptial.cs" />
-    <Compile Include="Model\Business\MEqualInterest.cs" />
-    <Compile Include="Model\Business\MDebt.cs" />
-    <Compile Include="Model\Business\MInvestment.cs" />
+    <Compile Include="Model\BaseObject\DebtType.cs" />
+    <Compile Include="Model\MRoot.cs" />
+    <Compile Include="Model\GlobalObject.cs" />
+    <Compile Include="Model\BaseObject\TimeType.cs" />
+    <Compile Include="Model\BusinessObject\MEqualCaptial.cs" />
+    <Compile Include="Model\BusinessObject\MEqualInterest.cs" />
+    <Compile Include="Model\BusinessObject\MDebt.cs" />
+    <Compile Include="Model\BusinessObject\MInvestment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

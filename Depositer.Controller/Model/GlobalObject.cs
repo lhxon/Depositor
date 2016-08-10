@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Depositer.Controller.Model
 {
-    public class MGlobal
+    public class GlobalObject
     {
         /// <summary>
         /// 配置的贷款对象

@@ -30,17 +30,15 @@ namespace Depositer.Controller.Model
         /// 每月偿还的本金
         /// </summary>
         public override double PaymentCapitalMonth(int monthIndex)
-        {
-            if (monthIndex < 0)
-                throw new ArgumentException("月索引小于0");
-            return SumDebt / TimeLengthMonth;
+        { 
+            return SumDebt / TimeLength;;
         }
         /// <summary>
         /// 每月偿还的本金
         /// </summary>
         public override double PaymentCapitalMonth(DateTime time)
         {
-            int i = GetMonthIndex(time);
+            int i = GetMonthIndex(time); 
             return PaymentCapitalMonth(i);
         }
         /// <summary>
@@ -72,7 +70,7 @@ namespace Depositer.Controller.Model
         public override double GetSumPayment()
         {
             double sumPaymentAmount = 0.0;
-            for (int i = 0; i < TimeLengthMonth; i++)
+            for (int i = 0; i < TimeLength; i++)
             {              
                 sumPaymentAmount += PaymentAt(i + 1);
             }
@@ -84,7 +82,7 @@ namespace Depositer.Controller.Model
         /// </summary>
         /// <param name="monthIndex"></param>
         /// <returns></returns>
-        public override double FinishedPaymentAt(int monthIndex)
+        public override double FinishedPaymentSumAt(int monthIndex)
         {
             if (monthIndex < 0)
                 throw new ArgumentException("月索引小于0");
@@ -94,6 +92,10 @@ namespace Depositer.Controller.Model
                 paymentAmount += PaymentAt(i + 1);
             }
             return paymentAmount;
+        }
+        public override double FinishedPaymentSumAt(DateTime time)
+        {
+            return FinishedPaymentSumAt(GetMonthIndex(time));
         }
 
         /// <summary>
@@ -105,9 +107,12 @@ namespace Depositer.Controller.Model
         {
             if (monthIndex < 0)
                 throw new ArgumentException("月索引小于0");
-            return GetSumPayment() - FinishedPaymentAt(monthIndex);
+            return GetSumPayment() - FinishedPaymentSumAt(monthIndex);
         }
-
+        public override double LeftDebtAt(DateTime time)
+        {
+            return LeftDebtAt(GetMonthIndex(time));
+        }
         /// <summary>
         /// 在某个月(已供完本月的)还剩余要还的本金
         /// </summary>
@@ -127,7 +132,7 @@ namespace Depositer.Controller.Model
         {
             if (monthIndex < 0)
                 throw new ArgumentException("月索引小于0");
-            double capital = SumDebt / TimeLengthMonth;//还款本金是不变的
+            double capital = SumDebt / TimeLength;//还款本金是不变的
             double interest = 0.0; 
             interest = (SumDebt - monthIndex * capital) * MonthDebtRate;
             return capital + interest;

@@ -51,7 +51,7 @@ namespace Depositer.Forms
             {
                 BuildInvestModelInstance();
                 xmlTools.UpdateXML("InvestmentSetting.xml", earnings);
-                MGlobal.Investment = earnings;
+                GlobalObject.Investment = earnings;
                 IsSavedOK = true;
             }
             catch (Exception ex)

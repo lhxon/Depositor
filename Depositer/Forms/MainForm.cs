@@ -33,15 +33,15 @@ namespace Depositer.Forms
                 //加载贷款设置数据
                 xmlTools.ReadFromXML("DebtSetting.xml", typeof(MDebt));
                 var debtDict = xmlTools.XmlAttributeDict;
-                var mobject = MBase.ConvertDictToMObject(xmlTools.XmlAttributeDict, debtDict["DebtType"].ToString());
-                MGlobal.Debt = mobject as MDebt;
+                var mobject = MRoot.ConvertDictToMObject(xmlTools.XmlAttributeDict, debtDict["DebtType"].ToString());
+                GlobalObject.Debt = mobject as MDebt;
 
                 debtAnal = new DebtAnalysis();
                 //加载投资设置数据
                 xmlTools.ReadFromXML("InvestmentSetting.xml", typeof(MDebt));
                 var investDict = xmlTools.XmlAttributeDict;
-                var invobject = MBase.ConvertDictToMObject(xmlTools.XmlAttributeDict, "MInvestment");
-                MGlobal.Investment = invobject as MInvestment;
+                var invobject = MRoot.ConvertDictToMObject(xmlTools.XmlAttributeDict, "MInvestment");
+                GlobalObject.Investment = invobject as MInvestment;
             }
             catch(Exception ex)
             {
@@ -103,14 +103,20 @@ namespace Depositer.Forms
                 debtAnal.FillDebtDatagridViewBeforeTimeNow(this.debtDgv1);
                 debtAnal.FillDebtDatagridViewAfterTimeNow();
                 this.debtDgv2.DataSource = debtAnal.DataTableAfterNow;
-                DataGridViewDesign.SetDebtDataGirdViewFormat(this.debtDgv2);
-                this.capInterAgoLb.Text = string.Format("{0}万", Math.Round(debtAnal.FinishedRepay(), 2));
+                DataGridViewDesign.SetDebtDataGirdViewFormat(this.debtDgv2);               
+                double finishedAmount = GlobalObject.Debt.FinishedPaymentSumAt(DateTime.Now);
+                double unfinishedAmount = GlobalObject.Debt.LeftDebtAt(DateTime.Now);
+                double finishedCapital = GlobalObject.Debt.FinishedCapitalSumAt(DateTime.Now);
+                double unfinishedCapital = GlobalObject.Debt.SumDebt - finishedCapital;
+                double finishedInterest = GlobalObject.Debt.FinishedInterestSumAt(DateTime.Now);
+                double unfinishedInterest = GlobalObject.Debt.LeftInterestAt(DateTime.Now) - finishedInterest;
+                this.capInterAgoLb.Text = string.Format("{0}万", Math.Round(finishedAmount, 2));
                 //this.textBoxAgoScale.Text = string.Format("{0}%",Math.Round(debtAnal.FinishedAmountScale()*100,0));
-                this.capInterAfterLb.Text = string.Format("{0}万",Math.Round(debtAnal.UnFinishedRepay(),2));
-                this.capAgoLb.Text = string.Format("{0}万", Math.Round(debtAnal.FinishedCaptialAmount(), 2));
-                this.capAfterLb.Text = string.Format("{0}万", Math.Round(debtAnal.UnFinishedCaptialAmount(), 2));
-                this.interestAgoLb.Text = string.Format("{0}万", Math.Round(debtAnal.FinishedInterestAmount(), 2));
-                this.interestAfterLb.Text = string.Format("{0}万", Math.Round(debtAnal.UnFinishedInterestAmount(),2));
+                this.capInterAfterLb.Text = string.Format("{0}万",Math.Round(unfinishedAmount,2));
+                this.capAgoLb.Text = string.Format("{0}万", Math.Round(finishedCapital, 2));
+                this.capAfterLb.Text = string.Format("{0}万", Math.Round(unfinishedCapital, 2));
+                this.interestAgoLb.Text = string.Format("{0}万", Math.Round(finishedInterest, 2));
+                this.interestAfterLb.Text = string.Format("{0}万", Math.Round(unfinishedInterest,2));
             }
             catch (Exception ex)
             {
@@ -188,7 +194,7 @@ namespace Depositer.Forms
                 IMessageBox.ShowWarning("请选择一种还款方式！");
                 return;
             }
-            bigRepayDgv.DataSource = ibigRepayDebt.Recalculate(MGlobal.Investment.Saving/10000);//MGlobal.Investment.Saving
+            bigRepayDgv.DataSource = ibigRepayDebt.Recalculate(GlobalObject.Investment.Saving / 10000);//MGlobal.Investment.Saving
             DataGridViewDesign.SetDebtDataGirdViewFormat(this.bigRepayDgv);
             this.bigRepayCapInterLb.Text = string.Format("{0}万",ibigRepayDebt.LeftSumCapitalInterest.ToString());
             this.bigRepayCapLb.Text = string.Format("{0}万",ibigRepayDebt.LeftSumCapital.ToString());

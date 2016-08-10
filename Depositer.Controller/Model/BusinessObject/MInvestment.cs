@@ -8,7 +8,7 @@ namespace Depositer.Controller.Model
     [XMLAttribute("InvestmentAmount")]
     [XMLAttribute("MakingMoneyMonth")]
     [XMLAttribute("Saving")]
-    public class MInvestment:MBase
+    public class MInvestment:MRoot
     {
         private double inverstmentAmount;
         /// <summary>
@@ -54,11 +54,11 @@ namespace Depositer.Controller.Model
         public double GetIncomeAmount()
         {
             if (TimeType == TimeType.Year)
-                return timelength * YearRate;
+                return TimeLength * YearRate;
             else if (TimeType == TimeType.Month)
-                return timelength * MonthRate;
+                return TimeLength * MonthRate;
             else
-                return timelength * DayRate;
+                return TimeLength * DayRate;
         }
 
         /// <summary>

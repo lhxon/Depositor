@@ -84,7 +84,7 @@ namespace Depositer.Forms
              debt.YearRate = Double.Parse(yearRateTxt.Text);
              debt.OnDebtTime = Convert.ToDateTime(dateTimePicker1.Text);
              debt.BigTimes = Int32.Parse(bigTimesTxt.Text);
-             MGlobal.Debt = debt;
+             GlobalObject.Debt = debt;
         }     
     }
 }
