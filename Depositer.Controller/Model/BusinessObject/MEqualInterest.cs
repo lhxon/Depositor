@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Depositer.Lib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,10 +16,11 @@ namespace Depositer.Controller.Model
         /// </summary>        
         public override double PaymentAt(int monthIndex)
         {
-            var payment = sumDebt * MonthDebtRate * Math.Pow((1 + MonthDebtRate), TimeLengthMonth) /
-                ((Math.Pow((1 + MonthDebtRate), TimeLengthMonth)) - 1);
+            var payment = sumDebt * MonthDebtRate * 
+                Math.Pow((1 + MonthDebtRate), TimeLengthMonth) /
+                ((Math.Pow((1 + MonthDebtRate), TimeLengthMonth)) - 1);                
             if (payment < 0)
-                throw new Exception("还款金额不能小于零！");
+                throw new LessOrEquZeroException("还款金额");
             return payment;
         }
         public override double PaymentAt(DateTime time)
@@ -47,12 +49,22 @@ namespace Depositer.Controller.Model
         /// <returns></returns>
         public override double PaymentInterestAt(int monthIndex)
         {
-            return (sumDebt - (monthIndex - 1) * PaymentAt(monthIndex)) * MonthDebtRate;
+            //if (interest < 0)
+            //    throw new LessOrEquZeroException("利息"); 
+            if (monthIndex == 1)
+                return sumDebt*MonthDebtRate;
+            return interest;
         }
 
         public double PaymentInterestAt(int monthIndex, double sumDebt1)
-        {
-            return (sumDebt1 - (monthIndex - 1) * PaymentAt(monthIndex)) * MonthDebtRate;
+        {            
+            //if (interest < 0)
+            //    throw new LessOrEquZeroException("利息");
+            if (monthIndex == 1)
+                return 0;
+            double interest = (sumDebt1 - 2 * PaymentAt(1) + PaymentInterestAt(monthIndex - 1,sumDebt1)) * MonthDebtRate;
+            return interest;
+            
         }
         /// <summary>
         /// 某个月偿还的利息

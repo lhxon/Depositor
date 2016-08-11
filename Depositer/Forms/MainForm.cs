@@ -228,15 +228,15 @@ namespace Depositer.Forms
                 break;
                 case 1:
                 if (GlobalObject.Debt.DebtType == DebtType.MEqualCaptial)
-                    ibigRepayDebt = new ShortMonthNumbersBigRepay2();
+                    ibigRepayDebt = new ShortMonthsBigRepayS1();
                 else if (GlobalObject.Debt.DebtType == DebtType.MEqualInterest)
-                    ibigRepayDebt = new ShortMonthNumbersBigRepay3();
+                    ibigRepayDebt = new ShortMonthsBigRepayS2();
                 else
                     throw new Exception("为配置贷款类型！");
                 break;
                 case 2:
                    
-                        ibigRepayDebt = new ShortCapitalInterestBigRepay();
+                        ibigRepayDebt = new ShortMoneyBigRepay();
                    
 
                 break;

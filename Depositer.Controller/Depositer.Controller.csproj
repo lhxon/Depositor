@@ -49,10 +49,10 @@
     <Compile Include="Business\IBigRepayDebt.cs" />
     <Compile Include="Business\DebtAnalysis.cs" />
     <Compile Include="Business\DistributionDecision.cs" />
-    <Compile Include="Business\ShortCapitalInterestBigRepay.cs" />
-    <Compile Include="Business\ShortMonthNumbersBigRepay.cs" />
-    <Compile Include="Business\ShortMonthNumbersBigRepay2.cs" />
-    <Compile Include="Business\ShortMonthNumbersBigRepay3.cs" />
+    <Compile Include="Business\ShortMoneyBigRepay.cs" />
+    <Compile Include="Business\ShortMonthsBigRepay.cs" />
+    <Compile Include="Business\ShortMonthsBigRepayS1.cs" />
+    <Compile Include="Business\ShortMonthsBigRepayS2.cs" />
     <Compile Include="Model\BaseObject\DebtType.cs" />
     <Compile Include="Model\MRoot.cs" />
     <Compile Include="Model\GlobalObject.cs" />
