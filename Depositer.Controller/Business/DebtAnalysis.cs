@@ -62,7 +62,7 @@ namespace Depositer.Controller.Business
             dateTableBeforeNow = new DataTable();
             setTableStructure();
             dateTableBeforeNow.Columns.AddRange(columns);
-            for (int i = 1; i < debt.TimeLength + 1; i++)
+            for (int i = 1; i < debt.TimeLengthMonth + 1; i++)
             {
                 var row = dateTableBeforeNow.NewRow();
                 var time = debtTime.AddMonths(i);
@@ -82,7 +82,7 @@ namespace Depositer.Controller.Business
             dateTableAfterNow = new DataTable();
             setTableStructure();
             dateTableAfterNow.Columns.AddRange(columns);
-            for (int i = 1; i < debt.TimeLength + 1; i++)
+            for (int i = 1; i < debt.TimeLengthMonth + 1; i++)
             {
                 var row = dateTableAfterNow.NewRow();
                 var time = debtTime.AddMonths(i);

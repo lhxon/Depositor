@@ -10,12 +10,34 @@ namespace Depositer.Controller.Model
     {
         /// <summary>
         /// 配置的贷款对象
-        /// </summary>
-        public static MDebt Debt { get; set; }
+        /// </summary>       
+        private static MDebt debt; 
+        public static  MDebt Debt 
+        { 
+            get
+            {
+                return debt;
+            }
+            set
+            {
+                debt = value;
+            }
+        }
 
         /// <summary>
         /// 投资对象
         /// </summary>
-        public static MInvestment Investment { get; set; }
+        private static MInvestment investment;
+        public static  MInvestment Investment 
+        {
+            get
+            {
+                return investment;
+            }
+            set
+            {
+                investment = value;
+            }
+        }
     }
 }

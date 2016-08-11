@@ -26,7 +26,7 @@ namespace Depositer.Controller.Model
         {
             get 
             {
-                return converttimeLengthToMonth(); 
+                return timelength; //converttimeLengthToMonth(); 
             }
             set
             {
@@ -36,6 +36,16 @@ namespace Depositer.Controller.Model
             }
         }
 
+        /// <summary>
+        /// 以月为单位的时间长度
+        /// </summary>
+        public double TimeLengthMonth
+        {
+            get
+            {
+                return converttimeLengthToMonth();
+            }
+        }
         /// <summary>
         /// 时间类型
         /// </summary>
