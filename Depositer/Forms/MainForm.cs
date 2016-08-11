@@ -208,6 +208,13 @@ namespace Depositer.Forms
         /// <param name="e"></param>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            XMLTools xmlTools = new XMLTools();
+            //加载贷款设置数据
+            xmlTools.ReadFromXML("DebtSetting.xml", typeof(MDebt));
+            var debtDict = xmlTools.XmlAttributeDict;
+            var mobject = MRoot.ConvertDictToMObject(xmlTools.XmlAttributeDict, debtDict["DebtType"].ToString());
+            GlobalObject.Debt = mobject as MDebt;
+
             if(comboBox1.SelectedItem==null)
             {
                 IMessageBox.ShowWarning("请选择一种还款方式！");
@@ -220,10 +227,16 @@ namespace Depositer.Forms
 
                 break;
                 case 1:
-                ibigRepayDebt = new ShortMonthNumbersBigRepay();                
+                if (GlobalObject.Debt.DebtType == DebtType.MEqualCaptial)
+                    ibigRepayDebt = new ShortMonthsBigRepayS1();
+                else if (GlobalObject.Debt.DebtType == DebtType.MEqualInterest)
+                    ibigRepayDebt = new ShortMonthsBigRepayS2();
+                else
+                    throw new Exception("为配置贷款类型！");
                 break;
                 case 2:
-                ibigRepayDebt = new ShortCapitalInterestBigRepay();
+                   
+                        ibigRepayDebt = new ShortMoneyBigRepay();                   
                 break;
                 case 3:
 
