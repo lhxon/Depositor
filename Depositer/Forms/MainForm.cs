@@ -220,10 +220,10 @@ namespace Depositer.Forms
 
                 break;
                 case 1:
-                ibigRepayDebt = new ShortYearsBigRepay();
+                ibigRepayDebt = new ShortMonthNumbersBigRepay();                
                 break;
                 case 2:
-
+                ibigRepayDebt = new ShortCapitalInterestBigRepay();
                 break;
                 case 3:
 

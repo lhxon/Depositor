@@ -50,12 +50,17 @@ namespace Depositer.Controller.Model
         public int BigTimes { get; set; }
 
         /// <summary>
+        /// 大额还款时间
+        /// </summary>
+        public DateTime BigRepayTime { get; set; }
+
+        /// <summary>
         /// 贷款类型
         /// </summary>
         public DebtType DebtType { get; set; }
 
         /// <summary>
-        /// 时间从还款日算起是第几个月
+        /// 时间从还款日算起（默认）是第几个月
         /// </summary>
         /// <param name="time"></param>
         /// <returns></returns>
@@ -73,6 +78,43 @@ namespace Depositer.Controller.Model
             }
             return i;
         }
+
+        /// <summary>
+        /// 时间从还款日算起（默认）是第几个月
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public int GetMonthIndex(DateTime startTime, DateTime time)
+        {
+            if (time < OnDebtTime)
+                throw new ArgumentException("月索引小于0");
+            if (time < startTime)
+                throw new ArgumentException("前者时间不能大于后者");
+            var time1 = new DateTime(time.Year, time.Month, 1);
+            var tmptime = startTime;
+            int i = 0;
+            while (tmptime < time1)
+            {
+                tmptime = tmptime.AddMonths(1);
+                ++i;
+            }
+            return i;
+        }
+
+        /// <summary>
+        /// 获取等额本金需要的总还款额
+        /// </summary>
+        /// <returns></returns>
+        public abstract double GetSumPayment();
+
+        /// <summary>
+        /// 获取在某个月时已经还款的总额度
+        /// </summary>
+        /// <param name="monthIndex"></param>
+        /// <returns></returns>
+        public abstract double FinishedPaymentSumAt(int monthIndex);
+        public abstract double FinishedPaymentSumAt(DateTime time);
+
         /// <summary>
         /// 获取某个月的还款金额
         /// </summary>
@@ -92,20 +134,14 @@ namespace Depositer.Controller.Model
         /// <param name="monthIndex"></param>
         /// <returns></returns>
         public abstract double PaymentInterestAt(int monthIndex);
-        public abstract double PaymentInterestAt(DateTime time);
-        /// <summary>
-        /// 获取等额本金需要的总还款额
-        /// </summary>
-        /// <returns></returns>
-        public abstract double GetSumPayment();
+        public abstract double PaymentInterestAt(DateTime time); 
 
         /// <summary>
-        /// 获取在某个月时已经还款的总额度
+        /// 剩余还款总本金
         /// </summary>
         /// <param name="monthIndex"></param>
         /// <returns></returns>
-        public abstract double FinishedPaymentSumAt(int monthIndex);
-        public abstract double FinishedPaymentSumAt(DateTime time);
+        public abstract double LeftCapitalAt(DateTime time);
 
         /// <summary>
         /// 已经偿还的本金总和
@@ -140,14 +176,16 @@ namespace Depositer.Controller.Model
         /// </summary>
         /// <param name="monthIndex"></param>
         /// <returns></returns>
-        public abstract double LeftDebtAt(int monthIndex);
-        public abstract double LeftDebtAt(DateTime time);
-        /// <summary>
-        /// 剩余还款总本金
-        /// </summary>
-        /// <param name="monthIndex"></param>
-        /// <returns></returns>
-        public abstract double LeftCapitalAt(DateTime time);
+        public double LeftDebtAt(int monthIndex)
+        {
+            if (monthIndex < 0)
+                throw new ArgumentException("月索引小于0");
+            return GetSumPayment() - FinishedPaymentSumAt(monthIndex);
+        }
+        public double LeftDebtAt(DateTime time)
+        {
+            return LeftDebtAt(GetMonthIndex(time));
+        }
 
         /// <summary>
         /// 剩余的利息总和
@@ -157,7 +195,6 @@ namespace Depositer.Controller.Model
         public double LeftInterestAt(DateTime time)
         {
             return LeftDebtAt(time)-LeftCapitalAt(time);
-        }
-        
+        }        
     }
 }

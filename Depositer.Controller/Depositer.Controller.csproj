@@ -45,10 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\BigRepayDebtBase.cs" />
     <Compile Include="Business\IBigRepayDebt.cs" />
     <Compile Include="Business\DebtAnalysis.cs" />
     <Compile Include="Business\DistributionDecision.cs" />
-    <Compile Include="Business\ShortYearsBigRepay.cs" />
+    <Compile Include="Business\ShortCapitalInterestBigRepay.cs" />
+    <Compile Include="Business\ShortMonthNumbersBigRepay.cs" />
     <Compile Include="Model\BaseObject\DebtType.cs" />
     <Compile Include="Model\MRoot.cs" />
     <Compile Include="Model\GlobalObject.cs" />

@@ -15,8 +15,8 @@ namespace Depositer.Controller.Model
         /// </summary>        
         public override double PaymentAt(int monthIndex)
         {
-            var payment = SumDebt * MonthDebtRate * Math.Pow((1 + MonthDebtRate), TimeLength) /
-                ((Math.Pow((1 + MonthDebtRate), TimeLength)) - 1);
+            var payment = SumDebt * MonthDebtRate * Math.Pow((1 + MonthDebtRate), TimeLengthMonth) /
+                ((Math.Pow((1 + MonthDebtRate), TimeLengthMonth)) - 1);
             if (payment < 0)
                 throw new Exception("还款金额不能小于零！");
             return payment;
@@ -67,7 +67,7 @@ namespace Depositer.Controller.Model
         /// <returns></returns>
         public override double GetSumPayment()
         {
-            return PaymentAt(-1) * TimeLength;
+            return PaymentAt(-1) * TimeLengthMonth;
         }
 
         /// <summary>
@@ -82,19 +82,6 @@ namespace Depositer.Controller.Model
         public override double FinishedPaymentSumAt(DateTime time)
         {
             return FinishedPaymentSumAt(GetMonthIndex(time));
-        }
-        /// <summary>
-        /// 剩余还款总额度
-        /// </summary>
-        /// <param name="monthIndex"></param>
-        /// <returns></returns>
-        public override double LeftDebtAt(int monthIndex)
-        {
-            return GetSumPayment() - FinishedPaymentSumAt(monthIndex);
-        }
-        public override double LeftDebtAt(DateTime time)
-        {
-            return LeftDebtAt(GetMonthIndex(time));
         }
         /// <summary>
         /// 在某个月(已供完本月的)还剩余要还的本金
