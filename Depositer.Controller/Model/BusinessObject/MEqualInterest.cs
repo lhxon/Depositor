@@ -42,6 +42,7 @@ namespace Depositer.Controller.Model
             int i = GetMonthIndex(time);
             return PaymentAt(i) - PaymentInterestAt(i);
         }
+        private Dictionary<int, double> dictInterBefore = new Dictionary<int, double>();
         /// <summary>
         /// 某个月偿还的利息
         /// </summary>
@@ -49,22 +50,56 @@ namespace Depositer.Controller.Model
         /// <returns></returns>
         public override double PaymentInterestAt(int monthIndex)
         {
-            //if (interest < 0)
-            //    throw new LessOrEquZeroException("利息"); 
+            double inter = 0;
             if (monthIndex == 1)
-                return sumDebt*MonthDebtRate;
-            return interest;
+            {
+                inter = sumDebt * MonthDebtRate;
+            }
+            else
+            {
+                double beforeInterSum = 0;
+                for (int i = 1; i < monthIndex; i++)
+                {
+                    if (!dictInterBefore.ContainsKey(i))
+                        dictInterBefore.Add(i,PaymentInterestAt(i));
+                    beforeInterSum += dictInterBefore[i];
+                }
+                inter = (sumDebt - ((monthIndex-1)*PaymentAt(monthIndex) - beforeInterSum)) * MonthDebtRate;
+            }
+            if (inter < 0)
+                throw new LessOrEquZeroException("利息"); 
+            if (!dictInterBefore.ContainsKey(monthIndex))
+            {
+                dictInterBefore.Add(monthIndex, inter);
+            }
+            return inter;
         }
 
         public double PaymentInterestAt(int monthIndex, double sumDebt1)
-        {            
-            //if (interest < 0)
-            //    throw new LessOrEquZeroException("利息");
+        {
+            double inter = 0;
             if (monthIndex == 1)
-                return 0;
-            double interest = (sumDebt1 - 2 * PaymentAt(1) + PaymentInterestAt(monthIndex - 1,sumDebt1)) * MonthDebtRate;
-            return interest;
-            
+            {
+                inter = sumDebt1 * MonthDebtRate;
+            }
+            else
+            {
+                double beforeInterSum = 0;
+                for (int i = 1; i < monthIndex; i++)
+                {
+                    if (!dictInterBefore.ContainsKey(i))
+                        dictInterBefore.Add(i, PaymentInterestAt(i));
+                    beforeInterSum += dictInterBefore[i];
+                }
+                inter = (sumDebt1 - ((monthIndex - 1) * PaymentAt(monthIndex) - beforeInterSum)) * MonthDebtRate;
+            }
+            if (inter < 0)
+                throw new LessOrEquZeroException("利息");
+            if (!dictInterBefore.ContainsKey(monthIndex))
+            {
+                dictInterBefore.Add(monthIndex, inter);
+            }
+            return inter;           
         }
         /// <summary>
         /// 某个月偿还的利息
