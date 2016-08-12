@@ -234,11 +234,8 @@ namespace Depositer.Forms
                 else
                     throw new Exception("为配置贷款类型！");
                 break;
-                case 2:
-                   
-                        ibigRepayDebt = new ShortMoneyBigRepay();
-                   
-
+                case 2:                 
+                        ibigRepayDebt = new ShortMoneyBigRepay();                  
                 break;
                 case 3:
 
