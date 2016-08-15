@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Depositer.Lib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,9 @@ namespace Depositer.Controller.Model
         /// <summary>
         /// 配置的贷款对象
         /// </summary>       
-        private static MDebt debt; 
-        public static  MDebt Debt 
-        { 
+        private static MDebt debt;
+        public static MDebt Debt
+        {
             get
             {
                 return debt;
@@ -28,7 +29,7 @@ namespace Depositer.Controller.Model
         /// 投资对象
         /// </summary>
         private static MInvestment investment;
-        public static  MInvestment Investment 
+        public static MInvestment Investment
         {
             get
             {
@@ -39,5 +40,31 @@ namespace Depositer.Controller.Model
                 investment = value;
             }
         }
+
+        /// <summary>
+        /// 获取配置的贷款实例
+        /// </summary>
+        public static void GetGlobalDebtInstance()
+        {
+            var xmlTools = new XMLTools();
+            //加载贷款设置数据
+            xmlTools.ReadFromXML("DebtSetting.xml", typeof(MDebt));
+            var debtDict = xmlTools.XmlAttributeDict;
+            var mobject = MRoot.ConvertDictToMObject(xmlTools.XmlAttributeDict, debtDict["DebtType"].ToString());
+            debt = mobject as MDebt;
+        }
+
+        /// <summary>
+        /// 获取配置的投资实例
+        /// </summary>
+        public static void GetGlobalInvestInstance()
+        {
+            var xmlTools = new XMLTools();
+            //加载投资设置数据
+            xmlTools.ReadFromXML("InvestmentSetting.xml", typeof(MDebt));
+            var investDict = xmlTools.XmlAttributeDict;
+            var invobject = MRoot.ConvertDictToMObject(xmlTools.XmlAttributeDict, "MInvestment");
+            investment = invobject as MInvestment;
+        }
     }
-}
+}      

@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Depositer.Forms
 {
@@ -16,6 +17,7 @@ namespace Depositer.Forms
         private XMLTools xmlTools = new XMLTools();
         private DebtAnalysis debtAnal;
         private IBigRepayDebt ibigRepayDebt;
+        private double unfinishedInterest;
         public MainForm()
         {
             InitializeComponent();
@@ -30,18 +32,9 @@ namespace Depositer.Forms
         {
             try
             {
-                //加载贷款设置数据
-                xmlTools.ReadFromXML("DebtSetting.xml", typeof(MDebt));
-                var debtDict = xmlTools.XmlAttributeDict;
-                var mobject = MRoot.ConvertDictToMObject(xmlTools.XmlAttributeDict, debtDict["DebtType"].ToString());
-                GlobalObject.Debt = mobject as MDebt;
-
+                GlobalObject.GetGlobalDebtInstance();
                 debtAnal = new DebtAnalysis();
-                //加载投资设置数据
-                xmlTools.ReadFromXML("InvestmentSetting.xml", typeof(MDebt));
-                var investDict = xmlTools.XmlAttributeDict;
-                var invobject = MRoot.ConvertDictToMObject(xmlTools.XmlAttributeDict, "MInvestment");
-                GlobalObject.Investment = invobject as MInvestment;
+                GlobalObject.GetGlobalInvestInstance();
             }
             catch(Exception ex)
             {
@@ -100,6 +93,7 @@ namespace Depositer.Forms
         {
             try
             {
+                GlobalObject.GetGlobalDebtInstance();
                 debtAnal.FillDebtDatagridViewBeforeTimeNow(this.debtDgv1);
                 debtAnal.FillDebtDatagridViewAfterTimeNow();
                 this.debtDgv2.DataSource = debtAnal.DataTableAfterNow;
@@ -109,7 +103,7 @@ namespace Depositer.Forms
                 double finishedCapital = GlobalObject.Debt.FinishedCapitalSumAt(DateTime.Now);
                 double unfinishedCapital = GlobalObject.Debt.SumDebt - finishedCapital;
                 double finishedInterest = GlobalObject.Debt.FinishedInterestSumAt(DateTime.Now);
-                double unfinishedInterest = GlobalObject.Debt.LeftInterestAt(DateTime.Now) - finishedInterest;
+                unfinishedInterest = GlobalObject.Debt.LeftInterestAt(DateTime.Now) - finishedInterest;
                 this.capInterAgoLb.Text = string.Format("{0}万", Math.Round(finishedAmount, 2));
                 //this.textBoxAgoScale.Text = string.Format("{0}%",Math.Round(debtAnal.FinishedAmountScale()*100,0));
                 this.capInterAfterLb.Text = string.Format("{0}万",Math.Round(unfinishedAmount,2));
@@ -199,6 +193,15 @@ namespace Depositer.Forms
             this.bigRepayCapInterLb.Text = string.Format("{0}万",ibigRepayDebt.LeftSumCapitalInterest.ToString());
             this.bigRepayCapLb.Text = string.Format("{0}万",ibigRepayDebt.LeftSumCapital.ToString());
             this.bigRepayInterLb.Text = string.Format("{0}万",ibigRepayDebt.LeftSumInterest.ToString());
+            
+            Series ser = new Series("利息对比");
+            ser.Points.AddXY("还贷前利息",Math.Round(unfinishedInterest, 2));
+            ser.Points.AddXY("还贷后利息",ibigRepayDebt.LeftSumInterest);
+            this.chart1.Series.Clear();
+            ser.IsValueShownAsLabel = true;
+            this.chart1.Series.Add(ser);
+            this.chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            this.chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
         }
 
         /// <summary>

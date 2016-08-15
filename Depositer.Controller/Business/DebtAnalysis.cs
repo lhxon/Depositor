@@ -60,6 +60,7 @@ namespace Depositer.Controller.Business
         public void FillDebtDatagridViewBeforeTimeNow(DataGridView debtDgview)
         {
             dateTableBeforeNow = new DataTable();
+            debt = GlobalObject.Debt;
             setTableStructure();
             dateTableBeforeNow.Columns.AddRange(columns);
             for (int i = 1; i < debt.TimeLengthMonth + 1; i++)
