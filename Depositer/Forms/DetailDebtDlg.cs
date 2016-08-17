@@ -69,6 +69,7 @@ namespace Depositer.Forms
             selectDataRow(0, 11);
             beforeCursor = 0;
             afterCursor = 11;
+            this.pagenoTxt.Text = "1";
             this.debtDgv1.DataSource = showTable;
             DataGridViewDesign.SetDebtDataGirdViewFormat(this.debtDgv1);
         }
@@ -80,7 +81,8 @@ namespace Depositer.Forms
             //if (showTable.Rows.Count == 0) return;
             if (beforeCursor == 0) return;
             beforeCursor -= 12;
-            afterCursor -= 12; 
+            afterCursor -= 12;
+            this.pagenoTxt.Text = string.Format("{0}",beforeCursor / 12 + 1);
             selectDataRow(beforeCursor, afterCursor);
             this.debtDgv1.DataSource = showTable;
             DataGridViewDesign.SetDebtDataGirdViewFormat(this.debtDgv1);
@@ -93,7 +95,8 @@ namespace Depositer.Forms
             //if (showTable.Rows.Count == 0) return;
             if (afterCursor == fullTable.Rows.Count-1) return;
             beforeCursor += 12;
-            afterCursor += 12;  
+            afterCursor += 12;
+            this.pagenoTxt.Text = string.Format("{0}", beforeCursor / 12 + 1);
             selectDataRow(beforeCursor, afterCursor);      
             this.debtDgv1.DataSource = showTable;
             DataGridViewDesign.SetDebtDataGirdViewFormat(this.debtDgv1);

@@ -36,13 +36,18 @@ namespace Depositer.Forms
                 GlobalObject.GetGlobalDebtInstance();
                 debtAnal = new DebtAnalysis();
                 GlobalObject.GetGlobalInvestInstance();
+
+                var startPage = new StartPageForm();
+                startPage.MdiParent = this;
+                startPage.Dock = DockStyle.Fill;
+                startPage.Show();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 IMessageBox.ShowWarning(ex.Message);
             }
         }
-     
+
         //重新登入系统
         private void reloginToolStripBtn_Click(object sender, EventArgs e)
         {
@@ -59,14 +64,18 @@ namespace Depositer.Forms
         private void debtSettingToolStripBtn_Click(object sender, EventArgs e)
         {
             DebtSettingDlg debtSetDlg = new DebtSettingDlg();
-            debtSetDlg.ShowDialog();
+            debtSetDlg.MdiParent = this;
+            debtSetDlg.Dock = DockStyle.Fill;
+            debtSetDlg.Show();
         }
 
         //投资设置
         private void investToolStripBtn_Click(object sender, EventArgs e)
         {
             InvestSettingDlg investSetDlg = new InvestSettingDlg();
-            investSetDlg.ShowDialog();
+            investSetDlg.MdiParent = this;
+            investSetDlg.Dock = DockStyle.Fill;
+            investSetDlg.Show();
         }
 
         //贷款分析
@@ -75,8 +84,9 @@ namespace Depositer.Forms
             try
             {
                 DebtAnalysisDlg debtAnaDlg = new DebtAnalysisDlg();
-                debtAnaDlg.ShowDialog();
-                
+                debtAnaDlg.MdiParent = this;
+                debtAnaDlg.Dock = DockStyle.Fill;
+                debtAnaDlg.Show();
             }
             catch (Exception ex)
             {
@@ -88,8 +98,10 @@ namespace Depositer.Forms
         private void EarlyBigPayToolStripBtn_Click(object sender, EventArgs e)
         {
             EarlyPayDlg earlyDlg = new EarlyPayDlg();
-            earlyDlg.ShowDialog();
-        }      
+            earlyDlg.MdiParent = this;
+            earlyDlg.Dock = DockStyle.Fill;
+            earlyDlg.Show();
+        }
 
     }
 }

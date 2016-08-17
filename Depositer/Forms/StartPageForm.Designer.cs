@@ -1,6 +1,6 @@
 ﻿namespace Depositer.Forms
 {
-    partial class BaseDlg
+    partial class StartPageForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,18 +30,19 @@
         {
             this.SuspendLayout();
             // 
-            // BaseDlg
+            // StartPageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(331, 500);
-            this.Name = "BaseDlg";
-            this.Text = "BaseDlg";
+            this.BackColor = System.Drawing.SystemColors.Info;
+            this.ClientSize = new System.Drawing.Size(331, 620);
+            this.Name = "StartPageForm";
+            this.Text = "StartPageForm";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
     }
 }

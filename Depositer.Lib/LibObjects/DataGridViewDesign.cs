@@ -21,9 +21,9 @@ namespace Depositer.Lib
             foreach (DataGridViewRow row in dgv.Rows)
             {
                 if (dgv.Rows.IndexOf(row) % 2 == 1)
-                    row.DefaultCellStyle.BackColor = Color.White;
+                    row.DefaultCellStyle.BackColor = SystemColors.Window;
                 else
-                    row.DefaultCellStyle.BackColor = Color.LightGray;
+                    row.DefaultCellStyle.BackColor = SystemColors.Control;
             }         
         }
 

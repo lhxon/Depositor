@@ -31,6 +31,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EarlyPayDlg));
             this.shortTimeRB = new System.Windows.Forms.RadioButton();
             this.shortMonthMoneyRB = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -87,18 +88,18 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(1, 132);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(321, 294);
+            this.groupBox1.Size = new System.Drawing.Size(318, 294);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "提前还贷后";
             // 
             // chart1
             // 
-            this.chart1.BackColor = System.Drawing.SystemColors.Control;
-            chartArea1.BackColor = System.Drawing.SystemColors.Control;
+            this.chart1.BackColor = System.Drawing.SystemColors.Info;
+            chartArea1.BackColor = System.Drawing.SystemColors.Info;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
-            legend1.BackColor = System.Drawing.SystemColors.Control;
+            legend1.BackColor = System.Drawing.SystemColors.Info;
             legend1.Name = "Legend1";
             legend1.Position.Auto = false;
             legend1.Position.Height = 15F;
@@ -119,6 +120,7 @@
             // 
             // savedInterestTxt
             // 
+            this.savedInterestTxt.BackColor = System.Drawing.SystemColors.Info;
             this.savedInterestTxt.Enabled = false;
             this.savedInterestTxt.Location = new System.Drawing.Point(120, 131);
             this.savedInterestTxt.Name = "savedInterestTxt";
@@ -136,17 +138,22 @@
             // 
             // paidDetailBtn
             // 
-            this.paidDetailBtn.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.paidDetailBtn.BackColor = System.Drawing.SystemColors.Info;
+            this.paidDetailBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.paidDetailBtn.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.paidDetailBtn.Image = ((System.Drawing.Image)(resources.GetObject("paidDetailBtn.Image")));
+            this.paidDetailBtn.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.paidDetailBtn.Location = new System.Drawing.Point(258, 48);
             this.paidDetailBtn.Name = "paidDetailBtn";
-            this.paidDetailBtn.Size = new System.Drawing.Size(37, 81);
+            this.paidDetailBtn.Size = new System.Drawing.Size(37, 84);
             this.paidDetailBtn.TabIndex = 6;
-            this.paidDetailBtn.Text = "明细";
+            this.paidDetailBtn.Text = "   明 细";
             this.paidDetailBtn.UseVisualStyleBackColor = false;
             this.paidDetailBtn.Click += new System.EventHandler(this.paidDetailBtn_Click);
             // 
             // interTxt
             // 
+            this.interTxt.BackColor = System.Drawing.SystemColors.Info;
             this.interTxt.Enabled = false;
             this.interTxt.Location = new System.Drawing.Point(120, 97);
             this.interTxt.Name = "interTxt";
@@ -164,6 +171,7 @@
             // 
             // capTxt
             // 
+            this.capTxt.BackColor = System.Drawing.SystemColors.Info;
             this.capTxt.Enabled = false;
             this.capTxt.Location = new System.Drawing.Point(120, 62);
             this.capTxt.Name = "capTxt";
@@ -181,6 +189,7 @@
             // 
             // capInterTxt
             // 
+            this.capInterTxt.BackColor = System.Drawing.SystemColors.Info;
             this.capInterTxt.Enabled = false;
             this.capInterTxt.Location = new System.Drawing.Point(120, 26);
             this.capInterTxt.Name = "capInterTxt";
@@ -198,12 +207,14 @@
             // 
             // calcuBtn
             // 
-            this.calcuBtn.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.calcuBtn.BackColor = System.Drawing.SystemColors.Info;
+            this.calcuBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.calcuBtn.ForeColor = System.Drawing.Color.Red;
             this.calcuBtn.Location = new System.Drawing.Point(35, 87);
             this.calcuBtn.Name = "calcuBtn";
-            this.calcuBtn.Size = new System.Drawing.Size(243, 23);
+            this.calcuBtn.Size = new System.Drawing.Size(243, 26);
             this.calcuBtn.TabIndex = 4;
-            this.calcuBtn.Text = "计算";
+            this.calcuBtn.Text = "计             算";
             this.calcuBtn.UseVisualStyleBackColor = false;
             this.calcuBtn.Click += new System.EventHandler(this.calcuBtn_Click);
             // 
@@ -211,13 +222,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(325, 500);
             this.Controls.Add(this.calcuBtn);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.shortMonthMoneyRB);
             this.Controls.Add(this.shortTimeRB);
             this.Name = "EarlyPayDlg";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "BigPayForm";
             this.Controls.SetChildIndex(this.saveButton, 0);
             this.Controls.SetChildIndex(this.closeBtn, 0);

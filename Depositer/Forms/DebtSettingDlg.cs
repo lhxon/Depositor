@@ -90,6 +90,6 @@ namespace Depositer.Forms
              debt.OnDebtTime = Convert.ToDateTime(dateTimePicker1.Text);
              debt.BigTimes = Int32.Parse(bigTimesTxt.Text);
              GlobalObject.Debt = debt;
-        }     
+        }    
     }
 }

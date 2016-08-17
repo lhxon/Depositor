@@ -82,6 +82,6 @@ namespace Depositer.Forms
                 MakingMoneyMonth = Double.Parse(makingRMBMonthTxt.Text),
                 Saving = Double.Parse(savingTxt.Text)
             };  
-        }    
+        }
     }
 }
