@@ -78,7 +78,7 @@ namespace Depositer.Controller.Business
         /// <summary>
         /// 为贷款分析表填充数据
         /// </summary>
-        public void FillDebtDatagridViewAfterTimeNow()
+        public void FillDebtDatagridViewAfterTimeNow(DataGridView debtDgview)
         {
             dateTableAfterNow = new DataTable();
             setTableStructure();
@@ -92,6 +92,7 @@ namespace Depositer.Controller.Business
                 setRowData(row, i, time);
                 dateTableAfterNow.Rows.Add(row);
             }
+            debtDgview.DataSource = dateTableAfterNow;
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace Depositer.Forms
     /// <summary>
     /// 投资设置对话框
     /// </summary>
-    public partial class InvestSettingDlg : BaseDlg
+    public partial class InvestSettingDlg : BaseSettingDlg
     {
         private MInvestment earnings = new MInvestment();
         public InvestSettingDlg()
@@ -62,6 +62,11 @@ namespace Depositer.Forms
             base.SaveButtonCall();
         }
 
+        protected override void CloseButtionCall()
+        {
+            this.Close();
+        }
+
         /// <summary>
         /// 构建贷款对象的实例
         /// 异常包括 ： LessOrEquZeroException FormatException
@@ -77,6 +82,6 @@ namespace Depositer.Forms
                 MakingMoneyMonth = Double.Parse(makingRMBMonthTxt.Text),
                 Saving = Double.Parse(savingTxt.Text)
             };  
-        }       
+        }    
     }
 }

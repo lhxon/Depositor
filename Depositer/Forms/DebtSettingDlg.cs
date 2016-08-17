@@ -9,7 +9,7 @@ namespace Depositer.Forms
     /// <summary>
     /// 贷款设置对话框
     /// </summary>
-    public partial class DebtSettingDlg : BaseDlg
+    public partial class DebtSettingDlg : BaseSettingDlg
     {
         private static MDebt debt = new MEqualCaptial();
 
@@ -64,6 +64,11 @@ namespace Depositer.Forms
                 IMessageBox.ShowWarning(ex.Message);
             }
             base.SaveButtonCall();
+        }
+
+        protected override void CloseButtionCall()
+        {
+            this.Close();
         }
 
         /// <summary>

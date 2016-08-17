@@ -56,6 +56,30 @@
     <Compile Include="Forms\BaseDlg.Designer.cs">
       <DependentUpon>BaseDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\BaseSettingDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseSettingDlg.Designer.cs">
+      <DependentUpon>BaseSettingDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseForm.Designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EarlyPayDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EarlyPayDlg.Designer.cs">
+      <DependentUpon>EarlyPayDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DebtAnalysisDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DebtAnalysisDlg.Designer.cs">
+      <DependentUpon>DebtAnalysisDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DebtSettingDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,19 +98,40 @@
     <Compile Include="Forms\InvestSettingDlg.Designer.cs">
       <DependentUpon>InvestSettingDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DetailDebtDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DetailDebtDlg.Designer.cs">
+      <DependentUpon>DetailDebtDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\BaseDlg.resx">
       <DependentUpon>BaseDlg.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseSettingDlg.resx">
+      <DependentUpon>BaseSettingDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DebtAnalysisDlg.resx">
+      <DependentUpon>DebtAnalysisDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DebtSettingDlg.resx">
       <DependentUpon>DebtSettingDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EarlyPayDlg.resx">
+      <DependentUpon>EarlyPayDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InvestSettingDlg.resx">
       <DependentUpon>InvestSettingDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DetailDebtDlg.resx">
+      <DependentUpon>DetailDebtDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
