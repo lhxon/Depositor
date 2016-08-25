@@ -27,6 +27,8 @@ namespace Depositer.Forms
         private void DebtSettingDlg_Load(object sender, EventArgs e)
         {
             this.FillControls();
+            monthRadioBtn.Visible = false;
+            dayRadioBtn.Visible = false;
         }
 
         private void FillControls()

@@ -137,8 +137,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
         protected System.Windows.Forms.TextBox TimeLengthTxt;
-        private System.Windows.Forms.RadioButton dayRadioBtn;
-        private System.Windows.Forms.RadioButton monthRadioBtn;
-        private System.Windows.Forms.RadioButton yearRadioBtn;
+        protected System.Windows.Forms.RadioButton dayRadioBtn;
+        protected System.Windows.Forms.RadioButton monthRadioBtn;
+        protected System.Windows.Forms.RadioButton yearRadioBtn;
     }
 }

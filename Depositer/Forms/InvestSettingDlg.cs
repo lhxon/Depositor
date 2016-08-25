@@ -25,6 +25,8 @@ namespace Depositer.Forms
         private void InvestSettingDlg_Load(object sender, EventArgs e)
         {
             this.FillControls();
+            monthRadioBtn.Checked = true;
+            dayRadioBtn.Checked = true;
         }
 
         private void FillControls()

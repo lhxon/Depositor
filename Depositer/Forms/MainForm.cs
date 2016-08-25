@@ -103,5 +103,10 @@ namespace Depositer.Forms
             earlyDlg.Show();
         }
 
+        // 投资分析
+        private void investAnalysisToolStripButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

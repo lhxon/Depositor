@@ -20,9 +20,7 @@ namespace Depositer.Forms
         private DataTable detailTable;
         public EarlyPayDlg()
         {
-            InitializeComponent();
-            base.saveButton.Visible = false;
-            setDefaultImplemation();
+            InitializeComponent();           
         }
 
         private void setDefaultImplemation()
@@ -31,6 +29,14 @@ namespace Depositer.Forms
                 iearyDebt = new ShortMonthsBigRepayS1();
             else if (GlobalObject.Debt.DebtType == DebtType.MEqualInterest)
                 iearyDebt = new ShortMonthsBigRepayS2();
+        }
+
+        private void updateInterfaceImplemation()
+        {
+            if(shortTimeRB.Checked==true)
+            {
+                setDefaultImplemation();
+            }
         }
 
         private IBigRepayDebt getShortTimeImplemation()
@@ -91,6 +97,8 @@ namespace Depositer.Forms
         private void calcuBtn_Click(object sender, EventArgs e)
         {
             GlobalObject.GetGlobalDebtInstance();
+            
+            updateInterfaceImplemation();
 
             if (iearyDebt == null)
             {
@@ -115,6 +123,11 @@ namespace Depositer.Forms
             detailDlg.ShowDialog();
         }
 
-
+        private void EarlyPayDlg_Load(object sender, EventArgs e)
+        {
+            base.saveButton.Visible = false;
+            setDefaultImplemation();
+            GlobalObject.GetGlobalDebtInstance();
+        }
     }
 }

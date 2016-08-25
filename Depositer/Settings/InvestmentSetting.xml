@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Setting>
-  <TimeType>Month</TimeType>
+  <TimeType>Day</TimeType>
   <TimeLength>3</TimeLength>
-  <InvestmentAmount>20000</InvestmentAmount>
+  <InvestmentAmount>50000</InvestmentAmount>
   <XMLYearRate>8.5</XMLYearRate>
   <MakingMoneyMonth>8000</MakingMoneyMonth>
   <Saving>100000</Saving>

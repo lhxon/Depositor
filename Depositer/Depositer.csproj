@@ -86,6 +86,12 @@
     <Compile Include="Forms\DebtSettingDlg.Designer.cs">
       <DependentUpon>DebtSettingDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\InvestAnalysisDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InvestAnalysisDlg.Designer.cs">
+      <DependentUpon>InvestAnalysisDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EarlyPayDlg.resx">
       <DependentUpon>EarlyPayDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InvestAnalysisDlg.resx">
+      <DependentUpon>InvestAnalysisDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
