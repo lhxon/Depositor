@@ -28,7 +28,7 @@
    * Model层
      * MDebt（贷款模型基对象）implements IMRoot（模型根接口）
        * MEqualCaptial（等额本金模型对象，继承于MDebt对象）extends MDebt，implements IMDebt（贷款模型接口）
-       * MEqualInterest（等额本息模型对象，继承于MDebt对象）extends MDebt，implements IMDebt（贷款模型接口）
+        * MEqualInterest（等额本息模型对象，继承于MDebt对象）extends MDebt，implements IMDebt（贷款模型接口）
    * 业务层
      * DebtAnalysis（提供贷款相关分析的业务逻辑）
      * BaseBigRepay（大额还款业务分析基类，之所以分离出这个对象，是因为大额还贷有多种方法）
