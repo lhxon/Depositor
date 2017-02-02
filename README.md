@@ -1,7 +1,6 @@
 # 贷款分析器
 ## 运行环境
-It runs in windows environment and .net framework2.0 or above. 
-It coded by C#  
+.net framework4.0 or above. 
 ## 功能说明
 * `背景`  
   从某个机构，比如银行，P2P贷款，是日常生活中时有发生的事情，尤其是现在北京等地的房价很高，买房很多人都要贷款，常见的贷款方式有2种：
@@ -15,6 +14,10 @@ It coded by C#
     * 支持两种贷款方式下，计算已偿还和未偿还的贷款金额、本金金额、利息金额；
     * 贷款明细展示
       贷款明细按照月份，直至贷款结束日期，依次显示每个月的偿还贷款金额，本金，利息，利息率等数值显示，提供分页浏览显示功能。
+    * 大额还款功能
+      * 目前只提供一种大额还款的方法：缩短还款周期，每月偿还的本息还是按照未大额还款前；`将来还会扩展缩短还款金额，还款周期不变的方法`。
+      * 支持输入计划大额还款金额，大额还款日期，显示大额还款后，每月最新的还款明细，包括本息，本金，利息，利息率等；
+      * 柱状图显示，大额还款后，节省的利息等。
   * 软件开源
   此软件完全开源，如需转载，请注明出处。
 ## 软件架构说明
@@ -22,20 +25,31 @@ It coded by C#
   Lib层（提供xml贷款配置本地保存服务等），业务模型层，业务逻辑层，界面层  
  * 主要对象介绍
    * Model层
-     * MDebt（贷款模型对象）
-       * MEqualCaptial（等额本金模型对象，继承于MDebt对象）
-       * MEqualInterest（等额本息模型对象，继承于MDebt对象）
+     * IMRoot（模型根接口）
+       * IMDebt （贷款接口）
+       * MDebt（贷款模型基对象）
+         * MEqualCaptial（等额本金模型对象，继承于MDebt对象）implements IMDebt, extends MDebt
+         * MEqualInterest（等额本息模型对象，继承于MDebt对象）implements IMDebt, extends MDebt
    * 业务层
      * DebtAnalysis（提供贷款相关分析的业务逻辑）
+     * BaseBigRepay（大额还款业务分析基类，之所以分离出这个对象，是因为大额还贷有多种方法）
+        * ShortMonthsBigRepay（缩短周期大额还款基类）extends BaseBigRepay
+          * ShortMonthsBigRepayS1（贷款方式为等额本金）extends ShortMonthsBigRepay ; implements IBigRepayDebt
+          * ShortMonthsBigRepayS2（贷款方式为等额本息）extends ShortMonthsBigRepay;implements IBigRepayDebt
+     
    * 界面层
-     * BaseForm（页面的基础功能，所有页面的根类）
+     * BaseForm（页面的母版页，所有页面的根类）
+       * BaseDlg（对话框的根类）
+         * BaseSettingDlg（贷款配置基对话框）
+         * DebtSettingDlg（贷款配置对话框）
+         * DebtAnalysisDlg （贷款分析对话框）
+         * DetailDebtDlg（贷款明细对话框）
+       * StartPageForm （软件的启动界面）
        * MainForm（软件的主界面）
-       * DebtAnalysisDlg（贷款的分析界面）
-       * DetailDebtDlg（贷款明细的分析界面）
-       * DebtSettingDlg（贷款配置界面）
+       
 
 ## 软件后期工作
-  当前软件是在.net C#写的，接下来会用Java再写一遍，进而过渡到手机移动app上。
+  当前软件用.net C#写的，接下来会用Java再写一遍，进而过渡到手机移动app上。
 
 ## 建议
   希望小伙伴们提出修改意见，谢谢您！
