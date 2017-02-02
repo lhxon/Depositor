@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -48,19 +48,18 @@
     <Compile Include="Business\BaseBigRepay.cs" />
     <Compile Include="Business\IBigRepayDebt.cs" />
     <Compile Include="Business\DebtAnalysis.cs" />
-    <Compile Include="Business\DistributionDecision.cs" />
-    <Compile Include="Business\ShortMoneyBigRepay.cs" />
     <Compile Include="Business\ShortMonthsBigRepay.cs" />
     <Compile Include="Business\ShortMonthsBigRepayS1.cs" />
     <Compile Include="Business\ShortMonthsBigRepayS2.cs" />
     <Compile Include="Model\BaseObject\DebtType.cs" />
+    <Compile Include="Model\BusinessObject\IMDebt.cs" />
+    <Compile Include="Model\IMRoot.cs" />
     <Compile Include="Model\MRoot.cs" />
     <Compile Include="Model\GlobalObject.cs" />
     <Compile Include="Model\BaseObject\TimeType.cs" />
     <Compile Include="Model\BusinessObject\MEqualCaptial.cs" />
     <Compile Include="Model\BusinessObject\MEqualInterest.cs" />
     <Compile Include="Model\BusinessObject\MDebt.cs" />
-    <Compile Include="Model\BusinessObject\MInvestment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

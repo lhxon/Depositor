@@ -86,23 +86,11 @@
     <Compile Include="Forms\DebtSettingDlg.Designer.cs">
       <DependentUpon>DebtSettingDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\InvestAnalysisDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\InvestAnalysisDlg.Designer.cs">
-      <DependentUpon>InvestAnalysisDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\InvestSettingDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\InvestSettingDlg.Designer.cs">
-      <DependentUpon>InvestSettingDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DetailDebtDlg.cs">
       <SubType>Form</SubType>
@@ -136,14 +124,8 @@
     <EmbeddedResource Include="Forms\EarlyPayDlg.resx">
       <DependentUpon>EarlyPayDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InvestAnalysisDlg.resx">
-      <DependentUpon>InvestAnalysisDlg.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InvestSettingDlg.resx">
-      <DependentUpon>InvestSettingDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DetailDebtDlg.resx">
       <DependentUpon>DetailDebtDlg.cs</DependentUpon>
@@ -243,9 +225,7 @@
     </Content>
     <Content Include="Settings\DebtSetting.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Settings\InvestmentSetting.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

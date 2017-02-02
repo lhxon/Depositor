@@ -1,8 +1,10 @@
 ﻿using Depositer.Controller.Model;
+using Depositer.Controller.Model.BusinessObject;
 using Depositer.Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Depositer.Forms
 {
@@ -59,6 +61,10 @@ namespace Depositer.Forms
                 BuildDebtModelInstance();
                 xmlTools.UpdateXML("DebtSetting.xml",debt);
                 IsSavedOK = true;
+                DebtAnalysisDlg debtAnaDlg = new DebtAnalysisDlg();
+                debtAnaDlg.MdiParent = GlobalObject.MainForm;
+                debtAnaDlg.Dock = DockStyle.Fill;
+                debtAnaDlg.Show();
             }
             catch(Exception ex)
             {
@@ -90,8 +96,7 @@ namespace Depositer.Forms
              debt.TimeLength = Double.Parse(TimeLengthTxt.Text);
              debt.YearRate = Double.Parse(yearRateTxt.Text);
              debt.OnDebtTime = Convert.ToDateTime(dateTimePicker1.Text);
-             debt.BigTimes = Int32.Parse(bigTimesTxt.Text);
-             GlobalObject.Debt = debt;
+             GlobalObject.Debt = (IMDebt)debt;
         }    
     }
 }

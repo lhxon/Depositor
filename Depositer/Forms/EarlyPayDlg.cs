@@ -26,9 +26,9 @@ namespace Depositer.Forms
         private void setDefaultImplemation()
         {
             if (GlobalObject.Debt.DebtType == DebtType.MEqualCaptial)
-                iearyDebt = new ShortMonthsBigRepayS1();
+                iearyDebt = new ShortMonthsBigRepayS1(this.planBigRepayTimeDTP.Value);
             else if (GlobalObject.Debt.DebtType == DebtType.MEqualInterest)
-                iearyDebt = new ShortMonthsBigRepayS2();
+                iearyDebt = new ShortMonthsBigRepayS2(this.planBigRepayTimeDTP.Value);
         }
 
         private void updateInterfaceImplemation()
@@ -43,9 +43,9 @@ namespace Depositer.Forms
         {
             IBigRepayDebt iearyDebt;
             if (GlobalObject.Debt.DebtType == DebtType.MEqualCaptial)
-                iearyDebt = new ShortMonthsBigRepayS1();
+                iearyDebt = new ShortMonthsBigRepayS1(this.planBigRepayTimeDTP.Value);
             else if (GlobalObject.Debt.DebtType == DebtType.MEqualInterest)
-                iearyDebt = new ShortMonthsBigRepayS2();
+                iearyDebt = new ShortMonthsBigRepayS2(this.planBigRepayTimeDTP.Value);
             else
                 throw new Exception("为配置贷款类型！");
             return iearyDebt;
@@ -96,30 +96,50 @@ namespace Depositer.Forms
 
         private void calcuBtn_Click(object sender, EventArgs e)
         {
-            GlobalObject.GetGlobalDebtInstance();
-            
-            updateInterfaceImplemation();
-
-            if (iearyDebt == null)
+            try
             {
-                IMessageBox.ShowWarning("请选择一种还款方式！");
-                return;
+                GlobalObject.GetGlobalDebtInstance();
+
+                updateInterfaceImplemation();
+
+                if (iearyDebt == null)
+                {
+                    IMessageBox.ShowWarning("请选择一种还款方式！");
+                    return;
+                }
+                if (string.IsNullOrEmpty(planBigPayAmountTxt.Text))
+                {
+                    IMessageBox.ShowWarning("请填写计划还款金额！");
+                    return;
+                }
+
+                if(  DateTime.Parse(this.planBigRepayTimeDTP.Value.ToString("yyyy-MM-01")) < DateTime.Parse(DateTime.Now.ToString("yyyy-MM-01")) )
+                {
+                    IMessageBox.ShowWarning("计划还贷时间早于当前时间！请设置一个以后的时间");
+                    return;
+                }
+
+                detailTable = iearyDebt.Recalculate(Convert.ToDouble(planBigPayAmountTxt.Text));
+
+                this.capInterTxt.Text = string.Format("{0} 元", (Math.Round(iearyDebt.LeftSumCapitalInterest, 2) * 1e4).ToString());
+                this.capTxt.Text = string.Format("{0} 元", (Math.Round(iearyDebt.LeftSumCapital, 2) * 1e4).ToString());
+                this.interTxt.Text = string.Format("{0} 元", (Math.Round(iearyDebt.LeftSumInterest, 2) * 1e4).ToString());
+                double saveInter = GlobalObject.Debt.LeftInterestAt(DateTime.Now) - iearyDebt.LeftSumInterest;
+                this.savedInterestTxt.Text = string.Format("{0} 元", (Math.Round(saveInter, 2) * 1e4).ToString());
+
+                fillChart(this.chart1);
+            }
+            catch(Exception ex)
+            {
+                IMessageBox.ShowWarning(ex.Message);
             }
 
-            detailTable = iearyDebt.Recalculate(GlobalObject.Investment.Saving / 1e4);//default investing money
-
-            this.capInterTxt.Text = string.Format("{0} 元", (Math.Round(iearyDebt.LeftSumCapitalInterest,2)*1e4).ToString());
-            this.capTxt.Text = string.Format("{0} 元", (Math.Round(iearyDebt.LeftSumCapital,2)*1e4).ToString());
-            this.interTxt.Text = string.Format("{0} 元", (Math.Round(iearyDebt.LeftSumInterest,2)*1e4).ToString());
-            double saveInter = GlobalObject.Debt.LeftInterestAt(DateTime.Now) - iearyDebt.LeftSumInterest;
-            this.savedInterestTxt.Text = string.Format("{0} 元", (Math.Round(saveInter,2)*1e4).ToString());
-
-            fillChart(this.chart1);
         }
 
         private void paidDetailBtn_Click(object sender, EventArgs e)
         {
             DetailDebtDlg detailDlg = new DetailDebtDlg(detailTable);
+            childFormShowPosition(this, detailDlg);
             detailDlg.ShowDialog();
         }
 

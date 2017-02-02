@@ -35,7 +35,6 @@ namespace Depositer.Forms
             {
                 GlobalObject.GetGlobalDebtInstance();
                 debtAnal = new DebtAnalysis();
-                GlobalObject.GetGlobalInvestInstance();
 
                 var startPage = new StartPageForm();
                 startPage.MdiParent = this;
@@ -63,26 +62,27 @@ namespace Depositer.Forms
         //贷款设置
         private void debtSettingToolStripBtn_Click(object sender, EventArgs e)
         {
-            DebtSettingDlg debtSetDlg = new DebtSettingDlg();
-            debtSetDlg.MdiParent = this;
-            debtSetDlg.Dock = DockStyle.Fill;
-            debtSetDlg.Show();
+            try
+            {
+                closeOpenedForm(typeof(DebtSettingDlg), this);
+                DebtSettingDlg debtSetDlg = new DebtSettingDlg();
+                debtSetDlg.MdiParent = this;
+                debtSetDlg.Dock = DockStyle.Fill;
+                debtSetDlg.Show();
+            }
+            catch(Exception ex)
+            {
+                IMessageBox.ShowWarning(ex.Message);
+            }
         }
 
-        //投资设置
-        private void investToolStripBtn_Click(object sender, EventArgs e)
-        {
-            InvestSettingDlg investSetDlg = new InvestSettingDlg();
-            investSetDlg.MdiParent = this;
-            investSetDlg.Dock = DockStyle.Fill;
-            investSetDlg.Show();
-        }
 
         //贷款分析
         private void DebtAnalysisToolStripBtn_Click(object sender, EventArgs e)
         {
             try
             {
+                closeOpenedForm(typeof(DebtAnalysisDlg), this);
                 DebtAnalysisDlg debtAnaDlg = new DebtAnalysisDlg();
                 debtAnaDlg.MdiParent = this;
                 debtAnaDlg.Dock = DockStyle.Fill;
@@ -97,16 +97,21 @@ namespace Depositer.Forms
         //大额还贷分析
         private void EarlyBigPayToolStripBtn_Click(object sender, EventArgs e)
         {
-            EarlyPayDlg earlyDlg = new EarlyPayDlg();
-            earlyDlg.MdiParent = this;
-            earlyDlg.Dock = DockStyle.Fill;
-            earlyDlg.Show();
+            try
+            {
+                closeOpenedForm(typeof(EarlyPayDlg), this);
+                EarlyPayDlg earlyDlg = new EarlyPayDlg();
+                earlyDlg.MdiParent = this;
+                earlyDlg.Dock = DockStyle.Fill;
+                earlyDlg.Show();
+            }
+            catch (Exception ex)
+            {
+                IMessageBox.ShowWarning(ex.Message);
+            }
+
         }
 
-        // 投资分析
-        private void investAnalysisToolStripButton_Click(object sender, EventArgs e)
-        {
 
-        }
     }
 }

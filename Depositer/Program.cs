@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Depositer.Controller.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,7 +16,8 @@ namespace Depositer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.MainForm());
+            GlobalObject.MainForm = new Forms.MainForm();
+            Application.Run(GlobalObject.MainForm);
         }
     }
 }

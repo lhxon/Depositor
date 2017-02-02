@@ -1,4 +1,5 @@
 using Depositer.Controller.Model;
+using Depositer.Controller.Model.BusinessObject;
 using Depositer.Lib;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,20 @@ namespace Depositer.Controller.Business
     {
         private DataColumn[] columns;
         private DateTime debtTime;
-        private MDebt debt;
+        private IMDebt idebt;
         private DataTable dateTableBeforeNow;
         private DataTable dateTableAfterNow;
 
         public DebtAnalysis()
         {
-            debt = GlobalObject.Debt;
-            if (debt == null)
+            if (GlobalObject.Debt.DebtType == DebtType.MEqualCaptial)
+                idebt = new MEqualCaptial();
+            else idebt = new MEqualInterest();
+
+            idebt = GlobalObject.Debt;
+            if (idebt == null)
                 throw new ArgumentException("请先进行贷款设置！");
-            debtTime = debt.OnDebtTime;
+            debtTime = idebt.OnDebtTime;
         }
 
         ///// <summary>
@@ -60,14 +65,14 @@ namespace Depositer.Controller.Business
         public void FillDebtDatagridViewBeforeTimeNow(DataGridView debtDgview)
         {
             dateTableBeforeNow = new DataTable();
-            debt = GlobalObject.Debt;
+            idebt = GlobalObject.Debt;
             setTableStructure();
             dateTableBeforeNow.Columns.AddRange(columns);
-            for (int i = 1; i < debt.TimeLengthMonth + 1; i++)
+            for (int i = 1; i < idebt.TimeLengthMonth + 1; i++)
             {
                 var row = dateTableBeforeNow.NewRow();
                 var time = debtTime.AddMonths(i);
-                if (DateTimeExtension.ReturnYearMonth(DateTime.Now) < DateTimeExtension.ReturnYearMonth(time))
+                if (DateTime.Parse(DateTime.Now.ToString("yyyy-MM-01")) < DateTime.Parse(time.ToString("yyyy-MM-01")))
                     break;
                 setRowData(row, i, time);
                 dateTableBeforeNow.Rows.Add(row);
@@ -83,11 +88,11 @@ namespace Depositer.Controller.Business
             dateTableAfterNow = new DataTable();
             setTableStructure();
             dateTableAfterNow.Columns.AddRange(columns);
-            for (int i = 1; i < debt.TimeLengthMonth + 1; i++)
+            for (int i = 1; i < idebt.TimeLengthMonth + 1; i++)
             {
                 var row = dateTableAfterNow.NewRow();
                 var time = debtTime.AddMonths(i);
-                if (DateTimeExtension.ReturnYearMonth(time) <= DateTimeExtension.ReturnYearMonth(DateTime.Now))
+                if (DateTime.Parse(time.ToString("yyyy-MM-01")) <= DateTime.Parse(DateTime.Now.ToString("yyyy-MM-01")))
                     continue;
                 setRowData(row, i, time);
                 dateTableAfterNow.Rows.Add(row);
@@ -122,9 +127,9 @@ namespace Depositer.Controller.Business
         internal void setRowData(DataRow row, int i, DateTime time)
         {
             row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
-            row["本息（元）"] = Math.Round(debt.PaymentAt(i) * 10000);
-            row["本金（元）"] = Math.Round(debt.PaymentCapitalMonth(i) * 10000);
-            row["利息（元）"] = Math.Round(debt.PaymentInterestAt(i) * 10000);
+            row["本息（元）"] = Math.Round(idebt.PaymentAt(idebt.OnDebtTime.AddMonths(i)) * 10000);
+            row["本金（元）"] = Math.Round(idebt.PaymentCapitalMonth(idebt.OnDebtTime.AddMonths(i)) * 10000);
+            row["利息（元）"] = Math.Round(idebt.PaymentInterestAt(idebt.OnDebtTime.AddMonths(i)) * 10000);
             row["利息率"] = (Math.Round((Double.Parse(row["利息（元）"].ToString()) /
                                   Double.Parse(row["本息（元）"].ToString())) * 100, 0)).ToString() + "%";
         }
@@ -138,9 +143,9 @@ namespace Depositer.Controller.Business
         internal void setRowData(DataRow row, DateTime time)
         {
             row["时间"] = string.Format("{0}-{1}", time.Year.ToString(), time.Month.ToString());
-            row["本息（元）"] = Math.Round(debt.PaymentAt(time) * 10000);
-            row["本金（元）"] = Math.Round(debt.PaymentCapitalMonth(time) * 10000);
-            row["利息（元）"] = Math.Round(debt.PaymentInterestAt(time) * 10000);
+            row["本息（元）"] = Math.Round(idebt.PaymentAt(time) * 10000);
+            row["本金（元）"] = Math.Round(idebt.PaymentCapitalMonth(time) * 10000);
+            row["利息（元）"] = Math.Round(idebt.PaymentInterestAt(time) * 10000);
             row["利息率"] = (Math.Round((Double.Parse(row["利息（元）"].ToString()) /
                                   Double.Parse(row["本息（元）"].ToString())) * 100, 0)).ToString() + "%";
         }

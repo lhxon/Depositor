@@ -3,8 +3,7 @@
   <TimeType>Year</TimeType>
   <TimeLength>30</TimeLength>
   <DebtType>MEqualCaptial</DebtType>
-  <SumDebt>31</SumDebt>
+  <SumDebt>30</SumDebt>
   <XMLYearRate>4.9</XMLYearRate>
   <OnDebtTime>2015/10/1 0:00:00</OnDebtTime>
-  <BigTimes>1</BigTimes>
 </Setting>

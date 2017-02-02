@@ -58,5 +58,16 @@ namespace Depositer.Forms
             CloseButtionCall();
         }
 
+        internal void closeOpenedForm(Type formtype, Form parentForm)
+        {
+            if (parentForm == null) return;
+
+            foreach (Control childForm in parentForm.MdiChildren)
+            {
+                if (childForm.GetType() == formtype)
+                    ((Form)childForm).Close();
+            }
+        }
+
     }
 }

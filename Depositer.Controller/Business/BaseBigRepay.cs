@@ -23,12 +23,7 @@ namespace Depositer.Controller.Business
         /// </summary>
         public BaseBigRepay()
         {
-            XMLTools xmlTools = new XMLTools();
-            //加载贷款设置数据
-            xmlTools.ReadFromXML("DebtSetting.xml", typeof(MDebt));
-            var debtDict = xmlTools.XmlAttributeDict;
-            var mobject = MRoot.ConvertDictToMObject(xmlTools.XmlAttributeDict, debtDict["DebtType"].ToString());
-            GlobalObject.Debt = mobject as MDebt;
+            GlobalObject.GetGlobalDebtInstance();
         }
 
         /// <summary>
